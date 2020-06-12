@@ -1,0 +1,164 @@
+<body>
+  <div *ngIf="!company">
+    <h1>Nessuna struttura associata a questo id</h1>
+  </div>
+
+
+  <div *ngIf="company">
+    <section class="title">
+      <h1 class="mat-display-2">{{company?.name}}</h1>
+      <a (click)="scroll('reviewSection')" >
+        <div class="rating">
+          <mat-icon *ngFor="let star of [].constructor(howManyFullStars())">star</mat-icon>
+          <mat-icon *ngIf="hasHalfStar()">star_half</mat-icon>
+          <mat-icon *ngFor="let star of [].constructor(howManyEmptyStars())">star_border</mat-icon>
+          <h3>{{rating}}</h3>
+        </div>
+      </a>
+
+      <h3>{{company.description}}</h3>
+    </section>
+    <mat-divider></mat-divider>
+
+    <main>
+
+      <section class="info">
+
+        <div class="innerTitle">
+          <mat-icon>info</mat-icon>
+          <h1> Info principali</h1>
+        </div>
+
+        <mat-divider></mat-divider>
+        <br>
+        <div class="distancedInfo">
+          <div class="singleInfo">
+            <mat-icon>access_time</mat-icon>
+            <h4> {{opening}}</h4>
+            <h4> / </h4>
+            <h4> {{closing}}</h4>
+          </div>
+          <div>
+            <h3 *ngIf="company?.status()==='open'" class="open status">Aperto ora</h3>
+            <h3 *ngIf="company?.status()==='closing'" class="closing status">In chiusura</h3>
+            <h3 *ngIf="company?.status()==='closed'" class="closed status">Chiuso</h3>
+          </div>
+        </div>
+
+        <div class="singleInfo">
+          <mat-icon>sensor_door</mat-icon>
+          <h4>Chiuso il {{company.freeDayToString()}}</h4>
+
+        </div>
+
+        <div class="singleInfo">
+          <mat-icon>location_on</mat-icon>
+          <h4>{{company.city}}, {{company.address}}</h4>
+        </div>
+        <div class="singleInfo">
+          <mat-icon>email</mat-icon>
+          <h4>{{company.email}}</h4>
+        </div>
+        <div class="singleInfo">
+          <mat-icon>phone</mat-icon>
+          <h4>{{company.phone}}</h4>
+        </div>
+      </section> <!-- info-->
+
+      <section class="centrale">
+        <img src="assets/search/company.jpg">
+      </section>
+
+      <section class="statistiche">
+        <div class="innerTitle">
+          <mat-icon>bar_chart</mat-icon>
+          <h1>Statistiche</h1>
+
+        </div>
+        <mat-divider></mat-divider>
+        <div class="fieldInfo" *ngIf="fieldList?.length>0">
+          <a (click)="scroll('fieldSection')">
+            <h4><mat-icon>sports</mat-icon>{{fieldList?.length}} campi, di cui:</h4>
+          </a>
+          <ul>
+            <li *ngIf="getNumberOfFields('Calcio')>0">
+              <mat-icon>sports_soccer</mat-icon>
+              {{getNumberOfFields('Calcio')}} di Calcio
+            </li>
+            <li *ngIf="getNumberOfFields('Calcetto')>0">
+              <mat-icon>sports_soccer</mat-icon>
+              {{getNumberOfFields('Calcetto')}} di Calcetto
+            </li>
+            <li *ngIf="getNumberOfFields('Tennis')>0">
+              <mat-icon>sports_tennis</mat-icon>
+              {{getNumberOfFields('Tennis')}} di Tennis
+            </li>
+            <li *ngIf="getNumberOfFields('Rugby')>0">
+              <mat-icon>sports_rugby</mat-icon>
+              {{getNumberOfFields('Rugby')}} di Rugby
+            </li>
+            <li *ngIf="getNumberOfFields('Volley')>0">
+              <mat-icon>sports_volleyball</mat-icon>
+              {{getNumberOfFields('Volley')}} di Rugby
+            </li>
+            <li *ngIf="getNumberOfFields('Basket')>0">
+              <mat-icon>sports_basketball</mat-icon>
+              {{getNumberOfFields('Basket')}} di Basket
+            </li>
+          </ul>
+          <mat-divider></mat-divider>
+        </div> <!-- fieldInfo-->
+
+        <div class="singleInfo">
+          <mat-icon>book</mat-icon>
+          <h4>
+            {{reservationList?.length}} prenotazioni soddisfatte
+          </h4>
+        </div>
+        <mat-divider></mat-divider>
+        <a (click)="scroll('reviewSection')">
+          <div class="singleInfo">
+            <mat-icon>create</mat-icon>
+            <h4>{{reviewList?.length}} recensioni ricevute</h4>
+          </div>
+
+        </a>
+
+      </section>
+    </main>
+    <mat-divider></mat-divider>
+
+    <section id="fieldSection">
+      <h1 class="title mat-display-1">I nostri campi</h1>
+      <div *ngFor="let field of fieldList; index as i" class="elenco">
+        <div class="inner-elenco">
+          <h1>{{i+1}})</h1>
+          <app-compact-field class="fieldElement" [field]=field></app-compact-field>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </section>
+
+
+    <section id="reviewSection">
+      <h1 class="title mat-display-1">Recensioni</h1>
+      <div class="reviewButton">
+        <h4>Mostra:</h4>
+        <mat-select [(value)]="reviewOrder">
+          <mat-option value="Le migliori" (click)="toggleReviewOrder('Le migliori')">Le migliori</mat-option>
+          <mat-option value="Più recenti" (click)="toggleReviewOrder('Più recenti')">Più recenti</mat-option>
+        </mat-select>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div *ngFor="let review of reviewList;" class="elenco">
+        <app-review [review]=review></app-review>
+        <mat-divider></mat-divider>
+      </div>
+    </section>
+  </div>
+
+
+
+
+</body>

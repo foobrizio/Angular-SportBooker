@@ -1,0 +1,14 @@
+<main>
+  <div class="container">
+    <div id="rating">
+      <mat-icon *ngFor="let star of [].constructor(review.vote)">star</mat-icon>
+      <mat-icon *ngFor="let star of [].constructor(5 - review.vote)">star_border</mat-icon>
+    </div>
+    <div id="comment">
+      "{{review.comment}}"
+    </div>
+    <div id="by">
+      {{review.reviewer.username}}, {{date}}
+    </div>
+  </div>
+</main>

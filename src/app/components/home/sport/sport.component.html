@@ -1,0 +1,80 @@
+<div class="myRoundBox sports">
+  <h1><strong>SportBooker è il posto ideale per gli amanti di vari sport, tra cui:</strong></h1>
+  <mat-divider></mat-divider>
+  <div class="inner-container">
+
+    <mat-card>
+      <a routerLink="/search" [queryParams]="{lookingFor: 'fields',sport: 'Calcio', rating:'0.0'}">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>sports_soccer</mat-icon>
+            <p>Calcio</p>
+          </mat-card-title>
+        </mat-card-header>
+      </a>
+    </mat-card>
+
+
+    <mat-card>
+      <a routerLink="/search" [queryParams]="{lookingFor: 'fields',sport: 'Calcetto', rating:'0.0'}">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>sports_soccer</mat-icon>
+            <p>Calcetto</p>
+          </mat-card-title>
+        </mat-card-header>
+      </a>
+    </mat-card>
+
+
+    <mat-card>
+      <a routerLink="/search" [queryParams]="{lookingFor: 'fields',sport: 'Tennis', rating:'0'}">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>sports_tennis</mat-icon>
+            <p>Tennis</p>
+          </mat-card-title>
+        </mat-card-header>
+      </a>
+    </mat-card>
+
+
+    <mat-card>
+      <a routerLink="/search" [queryParams]="{lookingFor: 'fields',sport: 'Volley', rating:'0.0'}">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>sports_volleyball</mat-icon>
+            <p>Pallavolo</p>
+          </mat-card-title>
+        </mat-card-header>
+      </a>
+    </mat-card>
+
+
+
+    <mat-card>
+      <a routerLink="/search" [queryParams]="{lookingFor: 'fields',sport: 'Basket', rating:'0.0'}">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>sports_basketball</mat-icon>
+            <p>Basket</p>
+          </mat-card-title>
+        </mat-card-header>
+      </a>
+    </mat-card>
+
+
+    <mat-card>
+      <a routerLink="/search" [queryParams]="{lookingFor: 'fields',sport: 'Rugby', rating:'0.0'}">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>sports_rugby</mat-icon>
+            <p>Rugby</p>
+          </mat-card-title>
+        </mat-card-header>
+      </a>
+    </mat-card>
+
+
+  </div>
+</div>

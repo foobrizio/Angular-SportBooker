@@ -1,0 +1,65 @@
+<div class="container">
+
+
+  <div class="image-container">
+    <img [src]="imageUrl" alt="Photo not found">
+  </div>
+
+
+  <div class="info-container">
+
+    <div class="info-inner-container column">
+      <div class="">
+
+        <div *ngIf="company?.status()==='open'" class="mat-display-1 open row">
+          <mat-icon>check</mat-icon>
+          <h2>Aperto</h2>
+        </div>
+        <div *ngIf="company?.status()==='closing'" class="mat-display-1 closing row">
+          <mat-icon>warning</mat-icon>
+          <h2>Sta chiudendo</h2>
+        </div>
+        <div *ngIf="company?.status()==='closed'" class="mat-display-1 closed row">
+          <mat-icon>close</mat-icon>
+          <h2>Chiuso</h2>
+        </div>
+      </div> <!-- Aperto - Chiuso -->
+      <div class="row contacts" *ngIf='company.phone'>
+        <mat-icon>phone</mat-icon>
+        <h4>{{company.phone}}</h4>
+      </div>
+      <div class="row contacts" *ngIf='company.email'>
+        <mat-icon>email</mat-icon>
+        <h4>{{company.email}}</h4>
+      </div>
+    </div> <!-- info-inner-container -->
+
+
+    <div class="info-inner-container column">
+
+      <div class="singleInfo">
+        <h4>{{company.city}}, {{company.address}}</h4>
+      </div>
+
+      <div class="info-inner-container spaced">
+        <div class="row">
+          <h3>rating:</h3>
+          <h4>{{rating}}</h4>
+        </div>
+        <div class="row rating">
+          <mat-icon *ngFor="let num of [].constructor(howManyFullStars())">star</mat-icon>
+          <mat-icon *ngIf="hasHalfStar()">star_half</mat-icon>
+          <mat-icon *ngFor="let num of [].constructor(howManyEmptyStars())">star_border</mat-icon>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div> <!-- info container-->
+
+
+</div>
+
+

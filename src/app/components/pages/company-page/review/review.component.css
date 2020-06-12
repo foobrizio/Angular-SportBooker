@@ -1,0 +1,21 @@
+.container{
+  padding:20px 20px;
+}
+
+#rating{
+  display: flex;
+  color:gold;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+#comment{
+  padding-left: 40px;
+}
+
+#by{
+
+  display:flex;
+  flex-direction: row-reverse;
+}
+

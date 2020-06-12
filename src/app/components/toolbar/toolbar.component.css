@@ -1,0 +1,44 @@
+mat-toolbar {
+  position: fixed;
+  z-index: 20;
+  padding: 2px;
+  background-color: rgba(154,205,50,0.9);
+  background-image: url('../../../img/header.png');
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position-y: center;
+  /*border-bottom: 2px solid black; */
+  box-shadow: 0px 10px 20px grey;
+}
+
+
+nav h2{
+  padding-right: 1rem;
+}
+
+.home-container, .login-container{
+  display: inline-flex;
+  align-items: center;
+  align-content: space-around;
+}
+
+.example-spacer{
+  flex: 1 1 auto;
+}
+
+a{
+  text-decoration: none;
+}
+a:link, a:visited, a:active{
+  color:black;
+}
+
+a:hover{
+  color:firebrick;
+}
+
+
+mat-icon {
+  padding: 1rem;
+  color: firebrick;
+}

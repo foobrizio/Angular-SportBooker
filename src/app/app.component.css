@@ -1,0 +1,11 @@
+#router-container{
+  /*background-position-x: center; */
+  padding-top:100px;
+  /*background-size: cover; */
+  background-attachment: scroll;
+  /*float: inline-end;
+  height: 100%; */
+  background-color: lightgoldenrodyellow;
+  height: 100%;
+}
+

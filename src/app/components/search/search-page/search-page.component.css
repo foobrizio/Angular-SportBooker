@@ -1,0 +1,125 @@
+body{
+  background-image: url('../../../../img/search.png');
+  background-color: lightgoldenrodyellow;
+  background-position-y: -150px;
+  background-size: cover;
+  min-height: 2000px;
+  height:100%;
+}
+
+.container{
+
+  display: inline-flex;
+  flex-direction: row;
+  width:100%;
+
+}
+app-field-list, app-company-list{
+
+  margin-left: 30px;
+  background-image: none;
+  opacity: 1;
+
+}
+
+#search{
+
+  display:inline-flex;
+  flex-direction: column;
+  width: 30%;
+  height:100%;
+  background-color: rgba(173,255,47, 0.3);
+  box-shadow: 0px 10px 20px grey;
+}
+
+mat-form-field{
+
+  width: 80%;
+  padding: 20px 0px;
+}
+
+mat-radio-button{
+  padding:20px 20px;
+}
+
+mat-icon{
+  color: firebrick;
+}
+
+::ng-deep .mat-datepicker-toggle{
+  color: firebrick;
+}
+
+.search-radio{
+
+  display:inline-block;
+  padding:20px;
+}
+
+.field-search, .company-search{
+
+  padding: 20px 40px;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+
+.rating-label{
+  width:80%;
+  padding-top:30px;
+}
+
+.rating-label mat-divider, .rating-label label{
+
+  border-top-color: rgba(0, 0, 0, 0.52);
+  color: rgba(0, 0, 0, 0.52);
+}
+
+.inner-rating-label{
+
+  display: block;
+  overflow:auto;
+}
+
+.inner-rating-label label{
+
+  float:left;
+
+}
+.inner-rating-label mat-icon{
+  float:right;
+  padding-bottom:5px;
+}
+
+
+.rating-check{
+
+  display:inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.rating-check mat-radio-button{
+  padding:10px;
+}
+
+mat-option{
+  background-color: rgba(173,255,47, 0.3);
+}
+
+
+.confirm{
+  padding:20px;
+  display: block;
+}
+
+.confirm button{
+
+  float:right;
+  border-radius: 4.5px 15px;
+}
+
+app-field-list, app-company-list{
+
+  width:50%;
+}

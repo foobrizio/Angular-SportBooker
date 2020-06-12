@@ -1,0 +1,13 @@
+<div *ngIf="fieldList?.length === 0" class="empty">
+  <div class="inner">
+    <mat-icon>sentiment_very_dissatisfied</mat-icon>
+    <h2>Nessun campo trovato</h2>
+  </div>
+</div>
+
+
+<div class="field-container" *ngFor="let fld of fieldList; index as i">
+  <h2>Campo #{{i+1}}</h2>
+  <mat-divider></mat-divider>
+  <app-field [field]=fld></app-field>
+</div>

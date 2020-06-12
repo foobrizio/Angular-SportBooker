@@ -1,0 +1,110 @@
+<body>
+  <div class="container">
+    <section id="search">
+
+      <div class="search-radio">
+        <label><strong>Ricerca per:</strong> </label>
+        <mat-radio-group #searchRadio [(ngModel)]="selectedSearch">
+          <mat-radio-button value="fields">Campi</mat-radio-button>
+          <mat-radio-button value="companies">Strutture</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="field-search" *ngIf="selectedSearch==='fields'">
+        <h1>Ricerca Campi</h1>
+        <mat-form-field appearance="legacy">
+          <mat-label>Sport</mat-label>
+          <mat-select [(value)]="sport">
+            <mat-option value="Calcetto">Calcetto</mat-option>
+            <mat-option value="Calcio">Calcio</mat-option>
+            <mat-option value="Tennis">Tennis</mat-option>
+            <mat-option value="Volley">Volley</mat-option>
+            <mat-option value="Basket">Basket</mat-option>
+            <mat-option value="Rugby">Rugby</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>sports</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+          <mat-label>Città</mat-label>
+          <input [(ngModel)]="selectedCity" matInput placeholder="Dove si trova?">
+          <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+          <mat-label>Terreno</mat-label>
+          <input [(ngModel)]="selectedTerrain" matInput placeholder="Tipo di terreno">
+          <mat-icon matSuffix>grain</mat-icon>
+        </mat-form-field>
+
+        <div class="rating-label">
+          <div class="inner-rating-label">
+            <label>Rating: </label>
+            <mat-icon matSuffix>star</mat-icon>
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+        <br>
+        <mat-radio-group [(ngModel)]="ratingFieldRadio" class="rating-check">
+          <mat-radio-button value="4.0">Almeno 4 stelle</mat-radio-button>
+          <mat-radio-button value="3.0">Almeno 3 stelle</mat-radio-button>
+          <mat-radio-button value="2.0">Almeno 2 stelle</mat-radio-button>
+          <mat-radio-button value="1.0">Almeno 1 stella</mat-radio-button>
+          <mat-radio-button value="0.0">Tutti</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field appearance="legacy">
+          <mat-label>Giorno</mat-label>
+          <input [(ngModel)]="selectedDate" matInput [min]="" [max]="" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+          <mat-label>Orario</mat-label>
+          <mat-select [(ngModel)]="selectedTime" placeholder="A che ora vuoi prenotare?">
+            <mat-option *ngFor="let hour of availableHours" value="#{{hour}}:00">{{hour}}:00</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>access_time</mat-icon>
+        </mat-form-field>
+
+      </div> <!-- Ricerca Campi-->
+
+      <div class="company-search" *ngIf="selectedSearch==='companies'">
+        <h1>Ricerca Strutture</h1>
+
+        <mat-form-field appearance="legacy">
+          <mat-label>Città</mat-label>
+          <input [(ngModel)]="selectedCity" matInput placeholder="Dove si trova?">
+          <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+
+        <div class="rating-label">
+          <div class="inner-rating-label">
+            <label>Rating:</label>
+            <mat-icon matSuffix>star</mat-icon>
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+        <br>
+        <mat-radio-group [(ngModel)]="ratingCompanyRadio" class="rating-check">
+          <mat-radio-button value="4.0">Almeno 4 stelle</mat-radio-button>
+          <mat-radio-button value="3.0">Almeno 3 stelle</mat-radio-button>
+          <mat-radio-button value="2.0">Almeno 2 stelle</mat-radio-button>
+          <mat-radio-button value="1.0">Almeno 1 stella</mat-radio-button>
+          <mat-radio-button value="0.0">Tutte</mat-radio-button>
+        </mat-radio-group>
+      </div> <!-- Ricerca Strutture -->
+
+      <div class="confirm">
+        <button color="accent" mat-raised-button (click)='search()'><mat-icon>search</mat-icon>Cerca</button>
+      </div>
+
+
+    </section>
+    <app-field-list #fieldList *ngIf="lookingFor==='fields' "></app-field-list>
+    <app-company-list #companyList *ngIf="lookingFor==='companies' "></app-company-list>
+  </div>
+</body>

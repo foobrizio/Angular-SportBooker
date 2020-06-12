@@ -1,0 +1,53 @@
+<div class="container">
+
+
+  <div class="image-container">
+    <img [src]="imageUrl" alt="Photo not found">
+  </div>
+
+
+  <div class="info-container">
+
+    <div class="info-inner-container">
+      <div class="singleInfo">
+        <h1 class="mat-display-1">{{field.costPerHour}}€ all'ora</h1>
+      </div>
+      <div class="singleInfo">
+        <h3><strong>Gestito da: </strong></h3>
+        <h4><a routerLink="/company" [queryParams]="{id: field.ownerCompany.id}">{{field.ownerCompany.name}}</a></h4>
+      </div>
+      <div class="singleInfo">
+        <h3><strong>Località: </strong></h3>
+        <h4>{{field.ownerCompany.city}}, {{field.ownerCompany.address}}</h4>
+      </div>
+    </div> <!-- inner container -->
+
+    <div class="info-inner-container">
+      <div class="singleInfo">
+        <h3><strong>Sport:</strong></h3>
+        <h4>{{field.sport}}</h4>
+      </div>
+      <div class="singleInfo">
+        <h3><strong>Terreno:</strong></h3>
+        <h4>{{field.terrain}}</h4>
+      </div>
+      <div class="singleInfo">
+        <h3><strong>Lunghezza:</strong></h3>
+        <h4>{{field.length}} mt</h4>
+      </div>
+      <div class="singleInfo">
+        <h3><strong>Larghezza:</strong></h3>
+        <h4>{{field.width}} mt</h4>
+      </div>
+    </div> <!-- inner container -->
+
+    <div class="button-container">
+      <button color="accent" mat-raised-button (click)="openDialog()"><mat-icon>sports_handball</mat-icon>Prenota</button>
+    </div>
+
+  </div> <!-- info container-->
+
+
+</div>
+
+

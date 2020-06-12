@@ -1,0 +1,13 @@
+<div *ngIf="companyList?.length === 0" class="empty">
+  <div class="inner">
+    <mat-icon>sentiment_very_dissatisfied</mat-icon>
+    <h2>Nessuna struttura trovata</h2>
+  </div>
+</div>
+
+
+<div class="company-container" *ngFor="let cmp of companyList; index as i">
+  <a routerLink="/company" [queryParams]="{id: cmp.id}"><h2>{{cmp.name}}</h2></a>
+  <mat-divider></mat-divider>
+  <app-company [company]=cmp></app-company>
+</div>

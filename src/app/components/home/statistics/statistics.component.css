@@ -1,0 +1,16 @@
+.inner-container{
+
+  padding:20px;
+  display: inline-flex;
+}
+
+.inner-container mat-card{
+  margin: 0px 10px;
+}
+
+.myRoundBox{
+  border-radius: 15px 50px;
+  box-shadow: 0px 10px 20px grey;
+  padding: 1.5rem;
+  background-color:rgba(139,0,139,0.6);
+}

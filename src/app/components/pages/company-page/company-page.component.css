@@ -1,0 +1,185 @@
+body{
+
+  min-height: 2000px;
+  background-color:  lightgoldenrodyellow;
+
+}
+
+.title{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: yellowgreen;
+  margin-top:100px;
+}
+
+.title h1{
+  padding-top:40px;
+  color:firebrick;
+}
+
+.rating{
+  display: inline-flex;
+  flex-direction: row;
+  color: gold;
+}
+.rating h3{
+  padding-left: 10px;
+}
+main{
+  display:flex;
+}
+
+.info{
+  display: inline-flex;
+  flex-direction: column;
+  border-right: 1px solid;
+  border-color: rgba(0,0,0,0.16);
+  padding-top: 20px;
+  width: 25%;
+}
+
+.innerTitle{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.centrale{
+  display: flex;
+  flex-direction: column;
+  width:50%;
+  align-items: center;
+  justify-content: center;
+}
+.centrale img{
+  height:80%;
+  width:40%;
+}
+
+.statistiche{
+  border-left: 1px solid;
+  border-color: rgba(0,0,0,0.16);
+  width:25%;
+  display: inline-flex;
+  flex-direction: column;
+  /*border-left: 1px solid; */
+  border-color: rgba(0,0,0,0.16);
+  padding-top: 20px;
+}
+
+.statistiche h2{
+  text-align: center;
+}
+
+.singleInfo{
+  display: inline-flex;
+  flex-direction: row;
+}
+
+
+.singleInfo h4{
+  padding:5px;
+}
+
+.singleInfo mat-icon{
+  padding:5px;
+  color:firebrick;
+}
+
+.fieldInfo{
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.fieldInfo h4{
+  padding:5px;
+  margin-bottom:5px;
+}
+.fieldInfo ul{
+  margin:5px;
+}
+
+.fieldInfo mat-icon{
+  color:firebrick;
+}
+
+.distancedInfo{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.status{
+
+  padding: 5px;
+  padding-right: 15px;
+}
+
+.open{
+  color:green;
+
+}
+.closing{
+  color:darkgoldenrod;
+
+}
+.closed{
+  color: red;
+}
+
+#fieldSection{
+  margin-top: 40px;
+  height: 100%;
+  align-items:center;
+  align-content: center;
+}
+
+
+#reviewSection{
+  margin-top: 40px;
+}
+
+.reviewButton{
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  width:10rem;
+}
+
+.reviewButton h4{
+  color:firebrick;
+}
+.reviewButton mat-select{
+  padding:3px 10px;
+}
+
+
+.fieldElement{
+  padding:0px 60px;
+  width:100%;
+}
+
+.elenco{
+  display:inline-flex;
+  flex-direction: column;
+  width:100%;
+}
+
+.inner-elenco{
+  display: inline-flex;
+  flex-direction: row;
+}
+
+a{
+  text-decoration: none;
+}
+a:link, a:visited, a:active{
+  color:black;
+}
+
+a:hover{
+  color: firebrick;
+  font-weight: bold;
+  cursor: pointer;
+}
