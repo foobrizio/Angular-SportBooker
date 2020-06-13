@@ -1,12 +1,42 @@
-<h1 mat-dialog-title>Hi</h1>
-<div mat-dialog-content>
-  <p></p>
-  <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button cdkFocusInitial>Ok</button>
-</div>
+
+<body>
+  <h1 mat-dialog-title>Prenotazione presso {{data.field.ownerCompany.name}}</h1>
+  <div mat-dialog-content class="mat-typography">
+
+    <p>Stai per prenotare un campo di {{data.field.sport}} {{data.field.length}}m x{{data.field.width}}m per {{data.field.costPerHour}} all'ora.</p>
+    <p>Prima confermare, compila i campi sottostanti:</p>
+    <div class="forms">
+
+      <mat-form-field>
+        <mat-label>Scegli il giorno</mat-label>
+        <input [(ngModel)]="selectedDate" (dateChange)="setAvailableHours()" matInput [min]="getMinDate()" [max]="getMaxDate()" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Orario</mat-label>
+        <mat-select [(value)]="selectedTime" (selectionChange)="setHoursInARow()" placeholder="A che ora vuoi prenotare?">
+          <mat-option *ngFor="let hour of availableHours" value="#{{hour}}:00">{{hour}}:00</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div class="forms">
+
+      <mat-form-field>
+        <mat-select [(ngModel)]="selectedAmount" placeholder="Quante ore vuoi prenotare?">
+          <mat-option *ngFor="let times of getHoursInARow()" value="#{{times}}">{{times}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button cdkFocusInitial>Ok</button>
+  </div>
+</body>

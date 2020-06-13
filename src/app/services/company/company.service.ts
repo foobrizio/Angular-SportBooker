@@ -12,7 +12,7 @@ import { Reservation } from 'src/app/classes/reservation';
 export class CompanyService {
 
 
-  private mainUrl='http://localhost:8080/company/'
+  private mainUrl = 'http://localhost:8080/company/';
 
   constructor(private http: HttpClient) { }
 

@@ -1,0 +1,23 @@
+body{
+  background-color: lightgreen;
+  text-align: center;
+}
+
+h1{
+  padding:10px;
+  color: firebrick;
+  font-weight: bold;
+}
+mat-form-field{
+
+  display:flex;
+  flex-direction: row;
+  padding:5px 20px;
+}
+
+.forms{
+
+  display:inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
