@@ -61,12 +61,23 @@ export class CompanyPageComponent implements OnInit {
 
   } // getParams
 
+
+  getFragment(): void{
+    this.activatedRoute.fragment.subscribe( fragment => {
+
+      console.log(fragment);
+      this.scroll(fragment);
+    });
+  }
+
+
   getCompanyData(companyId: number){
 
     // prendiamo il rating
     this.reviewService.getRating(companyId).subscribe({
       next: x => {
         this.rating = x;
+        this.getFragment();
       },
       error: err => {
         if (err.error.text === 'No results!!!'){
@@ -139,11 +150,13 @@ export class CompanyPageComponent implements OnInit {
   }
 
 
-  scroll(target): void{
+  scroll(target: string): void{
 
-    console.log('scrolliamo');
+    console.log('scrolliamo ' + target);
     const where = document.getElementById(target);
-    where.scrollIntoView({behavior: 'smooth'});
+    console.log('where?');
+    console.log(where);
+    where?.scrollIntoView({behavior: 'smooth'});
   }
 
   toggleReviewOrder(value: string): void{

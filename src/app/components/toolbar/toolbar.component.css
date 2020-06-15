@@ -16,11 +16,12 @@ nav h2{
   padding-right: 1rem;
 }
 
-.home-container, .login-container{
+.home-container, .login-container, .logout-container{
   display: inline-flex;
   align-items: center;
   align-content: space-around;
 }
+
 
 .example-spacer{
   flex: 1 1 auto;
@@ -35,10 +36,19 @@ a:link, a:visited, a:active{
 
 a:hover{
   color:firebrick;
+  cursor: pointer;
 }
-
 
 mat-icon {
   padding: 1rem;
   color: firebrick;
 }
+
+::ng-deep .mat-menu-content{
+  padding:0px !important;
+  background: rgba(154,205,50,0.7);
+}
+.menuContent mat-icon{
+  color: firebrick;
+}
+

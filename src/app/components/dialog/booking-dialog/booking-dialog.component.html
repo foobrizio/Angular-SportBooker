@@ -1,20 +1,21 @@
 
 <body>
   <h1 mat-dialog-title>Prenotazione presso {{data.field.ownerCompany.name}}</h1>
-  <div mat-dialog-content class="mat-typography">
+  <mat-divider></mat-divider>
+  <div mat-dialog-content class="mat-typography container">
 
     <p>Stai per prenotare un campo di {{data.field.sport}} {{data.field.length}}m x{{data.field.width}}m per {{data.field.costPerHour}} all'ora.</p>
     <p>Prima confermare, compila i campi sottostanti:</p>
     <div class="forms">
 
-      <mat-form-field>
+      <mat-form-field id="dateField">
         <mat-label>Scegli il giorno</mat-label>
         <input [(ngModel)]="selectedDate" (dateChange)="setAvailableHours()" matInput [min]="getMinDate()" [max]="getMaxDate()" [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field id="timeField">
         <mat-label>Orario</mat-label>
         <mat-select [(value)]="selectedTime" (selectionChange)="setHoursInARow()" placeholder="A che ora vuoi prenotare?">
           <mat-option *ngFor="let hour of availableHours" value="#{{hour}}:00">{{hour}}:00</mat-option>
@@ -25,9 +26,10 @@
 
     <div class="forms">
 
-      <mat-form-field>
-        <mat-select [(ngModel)]="selectedAmount" placeholder="Quante ore vuoi prenotare?">
-          <mat-option *ngFor="let times of getHoursInARow()" value="#{{times}}">{{times}}</mat-option>
+      <mat-form-field id="numHoursField">
+        <mat-label>Quante ore di fila?</mat-label>
+        <mat-select [(ngModel)]="selectedAmount">
+          <mat-option *ngFor="let times of getHoursInARow()" value="{{times}}">{{times}}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -37,6 +39,6 @@
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button cdkFocusInitial>Ok</button>
+    <button mat-button cdkFocusInitia (click)="onOkClick()"l>Ok</button>
   </div>
 </body>

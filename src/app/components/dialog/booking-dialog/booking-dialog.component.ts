@@ -50,16 +50,35 @@ export class BookingDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
-    const now = new Date();
-    let hour: string;
-    if (now.getHours() < 10){
-      hour = String(now.getHours()) + ' ';
-    }
-    else{
-      hour = String(now.getHours());
+  }
+
+  onOkClick(): void{
+
+    if (this.checkIfClosable()){
+      this.dialogRef.close();
+    }else{
+
     }
   }
 
+  checkIfClosable(): boolean{
+
+    if (this.selectedDate !== undefined && this.selectedTime !== undefined && this.selectedAmount !== undefined){
+      return true;
+    }
+    else{
+      if (this.selectedDate === undefined){
+        document.getElementById('dateField').style.border = '1px solid red';
+      }
+      if (this.selectedTime === undefined){
+        document.getElementById('timeField').style.border = '1px solid red';
+      }
+      if (this.selectedAmount === undefined){
+        document.getElementById('numHoursField').style.border = '1px solid red';
+      }
+    }
+    return false;
+  }
 
   setAvailableHours(): void{
 
@@ -103,7 +122,7 @@ export class BookingDialogComponent implements OnInit {
 
   setHoursInARow(): void{
 
-    const selectedHour = Number.parseInt(this.selectedTime.substring(1, 3), 10);
+    const selectedHour = Number.parseInt(this.selectedTime.substring(0, 2), 10);
     let closingHour = Number.parseInt(String(this.data.field.ownerCompany.closingTime).substring(0, 2), 10);
     if (closingHour === 0){
       closingHour = 24;

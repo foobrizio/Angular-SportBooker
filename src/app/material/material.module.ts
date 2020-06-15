@@ -26,7 +26,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 const homeComponents = [ MatButtonModule, MatToolbarModule, MatIconModule, MatListModule, MatCardModule, MatDividerModule];
 const searchComponents1 = [ MatInputModule, MatFormFieldModule, MatSelectModule, MatRadioModule, MatCheckboxModule];
 const dateComponents1 = [ MatDatepickerModule, MatNativeDateModule];
-const classComponents = [ MatMenuModule, MatMenuModule];
+const classComponents = [ MatMenuModule];
 
 @NgModule({
   imports: [homeComponents, searchComponents1, dateComponents1, classComponents],

@@ -41,6 +41,9 @@ export class CompactFieldComponent implements OnInit {
         if (err.error.text === 'Field doesn\'t exist!!!'){
           console.log('Nessun campo associato all\'id');
         }
+        else if (err.error.text === 'No results!!!'){
+          console.log('No results!!!');
+        }
         else{
           console.log('Observer ha generato l\'errore ');
           console.log(err);
@@ -60,7 +63,6 @@ export class CompactFieldComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-
   }
 
 }

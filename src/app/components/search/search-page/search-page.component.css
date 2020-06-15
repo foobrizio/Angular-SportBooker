@@ -42,9 +42,6 @@ mat-radio-button{
   padding:20px 20px;
 }
 
-mat-icon{
-  color: firebrick;
-}
 
 ::ng-deep .mat-datepicker-toggle{
   color: firebrick;
@@ -108,17 +105,24 @@ mat-option{
 }
 
 
-.confirm{
+.button-container{
   padding:20px;
   display: block;
 }
 
-.confirm button{
+.button-container button{
 
   float:right;
   border-radius: 4.5px 15px;
+  color: firebrick;
+  margin-bottom: 20px;
 }
 
+
+.button-container button:hover{
+  background-color: firebrick;
+  color: gold;
+}
 app-field-list, app-company-list{
 
   width:50%;

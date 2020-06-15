@@ -50,6 +50,11 @@ img{
   flex-flow: row wrap;
 }
 
+.rating{
+
+  padding-left: 5px;;
+}
+
 .row h4{
   margin-left: 5px;
 }
@@ -79,4 +84,18 @@ h3, .rating mat-icon{
 
   color: red;
 
+}
+
+
+a{
+  text-decoration: none;
+}
+a:link, a:visited, a:active{
+  color:black;
+}
+
+a:hover{
+  color: firebrick;
+  font-weight: bold;
+  cursor: pointer;
 }

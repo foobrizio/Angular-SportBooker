@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/classes/user';
+import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,11 +8,34 @@ import { User } from 'src/app/classes/user';
 })
 export class ToolbarComponent implements OnInit {
 
-  user: User;
+  isAuthenticated: boolean;
+  name: string;
+  email: string;
 
-  constructor() { }
+  constructor(public oktaAuth: OktaAuthService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    // Subscribe to authentication state change
+    this.oktaAuth.$authenticationState.subscribe(
+      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
+    );
+    if (this.isAuthenticated){
+      this.name = (await this.oktaAuth.getUser()).given_name;
+      console.log((await this.oktaAuth.getUser()).preferred_username);
+    }
   }
+
+  login(): void{
+
+    this.oktaAuth.loginRedirect();
+
+  }
+
+  logout(): void{
+    this.oktaAuth.logout();
+  }
+
+
 
 }

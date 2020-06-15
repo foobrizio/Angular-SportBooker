@@ -7,9 +7,42 @@
   </a>
   <span class="example-spacer"></span>
   <nav>
-    <div class="login-container">
-      <mat-icon> account_circle </mat-icon>
-      <h2> Accedi </h2>
-    </div>
+    <a>
+      <div *ngIf="!isAuthenticated" class="login-container" (click)="login()">
+        <mat-icon>login</mat-icon>
+        <h2><strong> Accedi </strong></h2>
+      </div>
+      <div *ngIf="isAuthenticated" class="logout-container">
+        <mat-icon>account_circle</mat-icon>
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <h2><strong>Benvenuto, {{name}}</strong></h2>
+        </button>
+        <mat-menu #userMenu="matMenu" backdropClass="userMenu" yPosition="below" xPosition="before" >
+          <div class="menuContent">
+            <button mat-menu-item>
+              <mat-icon>face</mat-icon>Profilo
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item>
+              <mat-icon>calendar_today</mat-icon>Le tue prenotazioni
+            </button>
+            <button mat-menu-item>
+              <mat-icon>short_text</mat-icon>Recensioni effettuate
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item>
+              <mat-icon>plus_one</mat-icon>Aggiungi una struttura
+            </button>
+            <button mat-menu-item>
+              <mat-icon>corporate_fare</mat-icon>Le tue strutture
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>Logout</button>
+          </div>
+
+        </mat-menu>
+      </div>
+    </a>
   </nav>
 </mat-toolbar>

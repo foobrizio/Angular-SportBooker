@@ -17,7 +17,6 @@ export class StatisticsComponent implements OnInit {
   constructor(private statService: StatisticsService) { }
 
   ngOnInit(): void {
-    console.log('statistics.component.ts è stato inizializzato');
     this.getData();
   }
 

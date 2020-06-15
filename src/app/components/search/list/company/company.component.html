@@ -38,19 +38,24 @@
     <div class="info-inner-container column">
 
       <div class="singleInfo">
-        <h4>{{company.city}}, {{company.address}}</h4>
+        <h4>{{company.city}}</h4>
+        <h4>{{company.address}}</h4>
       </div>
 
       <div class="info-inner-container spaced">
         <div class="row">
           <h3>rating:</h3>
-          <h4>{{rating}}</h4>
+          <a routerLink='/company' [queryParams]="{id: company.id}"><h4>{{rating}}</h4></a>
+
         </div>
-        <div class="row rating">
-          <mat-icon *ngFor="let num of [].constructor(howManyFullStars())">star</mat-icon>
-          <mat-icon *ngIf="hasHalfStar()">star_half</mat-icon>
-          <mat-icon *ngFor="let num of [].constructor(howManyEmptyStars())">star_border</mat-icon>
-        </div>
+        <a routerLink="/company" [queryParams]="{id: company.id}" fragment="reviewSection">
+          <div class="row rating">
+            <mat-icon *ngFor="let num of [].constructor(howManyFullStars())">star</mat-icon>
+            <mat-icon *ngIf="hasHalfStar()">star_half</mat-icon>
+            <mat-icon *ngFor="let num of [].constructor(howManyEmptyStars())">star_border</mat-icon>
+          </div>
+        </a>
+
       </div>
 
     </div>
