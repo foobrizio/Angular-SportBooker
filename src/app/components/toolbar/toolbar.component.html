@@ -15,20 +15,26 @@
       <div *ngIf="isAuthenticated" class="logout-container">
         <mat-icon>account_circle</mat-icon>
         <button mat-button [matMenuTriggerFor]="userMenu">
-          <h2><strong>Benvenuto, {{name}}</strong></h2>
+          <h2><strong>Benvenuto, {{this.user?.firstName}}</strong></h2>
         </button>
         <mat-menu #userMenu="matMenu" backdropClass="userMenu" yPosition="below" xPosition="before" >
           <div class="menuContent">
-            <button mat-menu-item>
-              <mat-icon>face</mat-icon>Profilo
-            </button>
+            <a routerLink="/user">
+              <button mat-menu-item>
+                <mat-icon>face</mat-icon>Profilo
+              </button>
+            </a>
             <mat-divider></mat-divider>
-            <button mat-menu-item>
-              <mat-icon>calendar_today</mat-icon>Le tue prenotazioni
-            </button>
-            <button mat-menu-item>
-              <mat-icon>short_text</mat-icon>Recensioni effettuate
-            </button>
+            <a routerLink="/user">
+              <button mat-menu-item>
+                <mat-icon>calendar_today</mat-icon>Le tue prenotazioni
+              </button>
+            </a>
+            <a routerLink="/user">
+              <button mat-menu-item>
+                <mat-icon>short_text</mat-icon>Recensioni effettuate
+              </button>
+            </a>
             <mat-divider></mat-divider>
             <button mat-menu-item>
               <mat-icon>plus_one</mat-icon>Aggiungi una struttura

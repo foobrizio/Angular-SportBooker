@@ -1,0 +1,87 @@
+<body>
+  <main>
+    <div class="title myRoundBox">
+      <h1 class="mat-display-3"><strong>Profilo personale</strong></h1>
+    </div>
+    <mat-divider></mat-divider>
+
+
+    <section id="info" class="myRoundBox">
+      <h1 class="mat-display-2"><strong>Dati personali</strong></h1>
+      <div class="row">
+        <h1>
+          <mat-icon>account_circle</mat-icon>
+          <strong>Nome: </strong>
+          {{user?.firstName}} {{user?.lastName}}
+        </h1>
+        <h1>
+          <mat-icon>email</mat-icon>
+          <strong>Email:</strong>
+          {{user?.email}}
+        </h1>
+      </div>
+      <mat-divider></mat-divider>
+      <h1 class="mat-display-1">
+        <mat-icon>bar_chart</mat-icon>
+        <strong>Statistiche</strong>
+      </h1>
+      <div class="row">
+        <h1>
+          <mat-icon>calendar_today</mat-icon>
+          <strong>Prenotazioni effettuate:</strong>
+          {{reservationList.length+expiredReservationList.length}}
+        </h1>
+        <h1>
+          <mat-icon>create</mat-icon>
+          <strong>Recensioni rilasciate:</strong>
+          {{reviewList.length}}
+        </h1>
+      </div>
+      <div class="row" *ngIf="companyList.length>0">
+        <h1>
+          <strong>Strutture possedute:</strong>
+          {{companyList.length}}
+        </h1>
+      </div>
+    </section>
+
+
+    <section id="reservations" class="myRoundBox">
+      <h1 class="mat-display-2">
+        <mat-icon>calendar_today</mat-icon>
+        <strong>Le tue prenotazioni</strong>
+      </h1>
+      <mat-divider></mat-divider>
+      <div class="container">
+        <div class="active">
+          <h1><strong>Attive</strong></h1>
+
+        </div>
+        <div class="expired">
+          <h1><strong>Passate</strong></h1>
+
+        </div>
+
+      </div>
+
+
+
+    </section>
+
+
+    <section id="companies">
+    </section>
+    <section id="reviews">
+
+    </section>
+    <section id="footer" class="myRoundBox">
+      <p class="mat-headline">I dati che visualizzi vengono forniti dall'account Okta con cui sei loggato su SportBooker.</p>
+      <p class="mat-headline">Le modifiche effettuate sul tuo profilo Okta risulteranno visibili anche su SportBooker.</p>
+      <p class="mat-headline">Non è possibile modificare il tuo profilo direttamente da SportBooker.</p>
+
+    </section>
+
+  </main>
+
+
+</body>

@@ -11,6 +11,7 @@ import { AuthInterceptor } from './shared/okta/auth.interceptor';
 import { OktaCallbackComponent } from '@okta/okta-angular';
 import { CommonModule} from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { UserPageComponent } from './components/pages/user-page/user-page.component';
 
 const oktaConfig = {
   issuer: 'https://dev-834625.okta.com/oauth2/default	',
@@ -40,6 +41,10 @@ const routes: Routes = [{
 {
   path: 'company',
   component: CompanyPageComponent
+},
+{
+  path: 'user',
+  component: UserPageComponent
 },
 {
   path: '**',
