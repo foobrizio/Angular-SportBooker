@@ -1,0 +1,75 @@
+<body>
+  <h1 mat-dialog-title class="title">Creazione nuovo campo</h1>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content class="mat-typography container">
+
+    <form class="forms">
+
+      <div class="row">
+        <mat-form-field class="standard" *ngIf="companyList?.length>0">
+          <mat-label>Struttura</mat-label>
+          <mat-select #company [(value)]="comp">
+            <mat-option *ngFor="let company of companyList" [value]="company.name">
+              {{company.name}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Lo sport praticato nel campo</mat-hint>
+          <mat-icon matSuffix>sports</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="row">
+
+        <mat-form-field class="standard">
+          <mat-label>Sport</mat-label>
+          <input matInput #sport placeholder="Nome" (value)="sport">
+          <mat-hint>Lo sport praticato nel campo</mat-hint>
+          <mat-icon matSuffix>sports</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="standard">
+          <mat-label>Terreno</mat-label>
+          <input matInput #terrain (value)="terrain">
+          <mat-hint>Ex: sintetico, asfalto, parquet...</mat-hint>
+          <mat-icon matSuffix>grain</mat-icon>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+
+        <mat-form-field class="short">
+          <mat-label>Lunghezza</mat-label>
+          <input matInput #length placeholder="Lato lungo del campo" (value)="length">
+          <mat-icon matSuffix>zoom_out_map</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="short">
+          <mat-label>Larghezza</mat-label>
+          <input matInput #width (value)="width">
+          <mat-icon matSuffix>zoom_out_map</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="short">
+          <mat-label>Costo per ora</mat-label>
+          <input matInput #cost (value)="cost">
+          <mat-icon matSuffix>euro_symbol</mat-icon>
+        </mat-form-field>
+
+      </div>
+
+      <div class="buttonContainer">
+        <button mat-button (click)="onAnnullaClick()">
+          <mat-icon>thumb_down</mat-icon>
+          Annulla
+        </button>
+        <button mat-button (click)="onCreaClick()">
+          <mat-icon>thumb_up</mat-icon>
+          Crea Struttura
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</body>

@@ -5,9 +5,11 @@
   </div>
 </div>
 
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]">
+  <div class="field-container" *ngFor="let fld of fieldList; index as i">
+    <h2>Campo #{{i+1}}</h2>
+    <mat-divider></mat-divider>
+    <app-field [field]=fld></app-field>
+  </div>
+</mat-paginator>
 
-<div class="field-container" *ngFor="let fld of fieldList; index as i">
-  <h2>Campo #{{i+1}}</h2>
-  <mat-divider></mat-divider>
-  <app-field [field]=fld></app-field>
-</div>

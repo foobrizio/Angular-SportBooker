@@ -19,6 +19,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -26,7 +28,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 const homeComponents = [ MatButtonModule, MatToolbarModule, MatIconModule, MatListModule, MatCardModule, MatDividerModule];
 const searchComponents1 = [ MatInputModule, MatFormFieldModule, MatSelectModule, MatRadioModule, MatCheckboxModule];
 const dateComponents1 = [ MatDatepickerModule, MatNativeDateModule];
-const classComponents = [ MatMenuModule];
+const classComponents = [ MatMenuModule, MatPaginatorModule, FormsModule, ReactiveFormsModule];
 
 @NgModule({
   imports: [homeComponents, searchComponents1, dateComponents1, classComponents],

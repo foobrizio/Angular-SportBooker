@@ -65,7 +65,6 @@ export class CompanyPageComponent implements OnInit {
   getFragment(): void{
     this.activatedRoute.fragment.subscribe( fragment => {
 
-      console.log(fragment);
       this.scroll(fragment);
     });
   }
@@ -152,10 +151,7 @@ export class CompanyPageComponent implements OnInit {
 
   scroll(target: string): void{
 
-    console.log('scrolliamo ' + target);
     const where = document.getElementById(target);
-    console.log('where?');
-    console.log(where);
     where?.scrollIntoView({behavior: 'smooth'});
   }
 

@@ -17,31 +17,50 @@
         <button mat-button [matMenuTriggerFor]="userMenu">
           <h2><strong>Benvenuto, {{this.user?.firstName}}</strong></h2>
         </button>
+
         <mat-menu #userMenu="matMenu" backdropClass="userMenu" yPosition="below" xPosition="before" >
           <div class="menuContent">
+
             <a routerLink="/user">
               <button mat-menu-item>
                 <mat-icon>face</mat-icon>Profilo
               </button>
             </a>
+
             <mat-divider></mat-divider>
-            <a routerLink="/user">
+
+            <a routerLink="/user" fragment="reservations">
               <button mat-menu-item>
                 <mat-icon>calendar_today</mat-icon>Le tue prenotazioni
               </button>
             </a>
-            <a routerLink="/user">
+
+            <a routerLink="/user" fragment="reviews">
               <button mat-menu-item>
                 <mat-icon>short_text</mat-icon>Recensioni effettuate
               </button>
             </a>
+
             <mat-divider></mat-divider>
-            <button mat-menu-item>
-              <mat-icon>plus_one</mat-icon>Aggiungi una struttura
-            </button>
-            <button mat-menu-item>
-              <mat-icon>corporate_fare</mat-icon>Le tue strutture
-            </button>
+
+            <a (click)="openCompanyDialog()">
+              <button mat-menu-item>
+                <mat-icon>plus_one</mat-icon>Aggiungi una struttura
+              </button>
+            </a>
+
+            <a (click)="openFieldDialog()" *ngIf="companyList?.length>0">
+              <button mat-menu-item>
+                <mat-icon>plus_one</mat-icon>Aggiungi un campo
+              </button>
+            </a>
+
+            <a routerLink="/user" fragment="companies" *ngIf="companyList?.length>0">
+              <button mat-menu-item>
+                <mat-icon>corporate_fare</mat-icon>Le tue strutture
+              </button>
+            </a>
+
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="logout()">
               <mat-icon>exit_to_app</mat-icon>Logout</button>

@@ -1,0 +1,62 @@
+body{
+
+  padding:20px;
+  background-color: lightsalmon;
+  height: 90%;
+}
+
+.title{
+
+  text-align: center;
+  font-weight: bold;
+}
+
+.forms{
+
+  display:flex;
+  flex-direction: column;
+}
+
+.row{
+  display:inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.standard{
+
+  width: 30%;
+}
+.long{
+
+  width:60%;
+}
+.longmail{
+
+  width:50%;
+}
+
+.buttonContainer{
+
+  margin-top:30px;
+  display:inline-flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.buttonContainer button{
+
+  border-radius: 4.5px 15px;
+  background-color: gold;
+  color: firebrick;
+}
+
+.buttonContainer button:hover{
+  background-color: firebrick;
+  color: gold;
+}
+
+.row mat-icon{
+  color: firebrick;
+}

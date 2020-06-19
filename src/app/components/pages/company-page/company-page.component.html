@@ -130,13 +130,16 @@
 
     <section id="fieldSection">
       <h1 class="title mat-display-1">I nostri campi</h1>
-      <div *ngFor="let field of fieldList; index as i" class="elenco">
-        <div class="inner-elenco">
-          <h1>{{i+1}})</h1>
-          <app-compact-field class="fieldElement" [field]=field></app-compact-field>
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]">
+        <div *ngFor="let field of fieldList; index as i" class="elenco">
+          <div class="inner-elenco">
+            <h1>{{i+1}})</h1>
+            <app-compact-field class="fieldElement" [field]=field></app-compact-field>
+          </div>
+          <mat-divider></mat-divider>
         </div>
-        <mat-divider></mat-divider>
-      </div>
+      </mat-paginator>
+
     </section>
 
 
@@ -151,10 +154,13 @@
       </div>
       <mat-divider></mat-divider>
 
-      <div *ngFor="let review of reviewList;" class="elenco">
-        <app-review [review]=review></app-review>
-        <mat-divider></mat-divider>
-      </div>
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]">
+        <div *ngFor="let review of reviewList;" class="elenco">
+          <app-review [review]=review></app-review>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-paginator>
+
     </section>
   </div>
 

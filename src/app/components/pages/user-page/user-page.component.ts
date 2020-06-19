@@ -23,7 +23,6 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    window.scrollTo(0, 0);
     this.initUser();
   }
 
@@ -55,6 +54,17 @@ export class UserPageComponent implements OnInit {
     this.getExpiredReservations();
     this.getReviews();
     this.getCompanies();
+
+    this.activatedRoute.fragment.subscribe( fragment => {
+
+      if (fragment){
+        console.log('fragment');
+        this.scroll(fragment);
+      }
+      else {
+        window.scrollTo(0, 0);
+      }
+    });
 
 
   }
@@ -137,5 +147,12 @@ export class UserPageComponent implements OnInit {
       complete: () => { console.log('Completed'); }
     });
   } // getCompanies
+
+  scroll(target: string): void{
+
+    const where = document.getElementById(target);
+    console.log(where);
+    where.scrollIntoView({behavior: 'smooth'});
+  }
 
 }

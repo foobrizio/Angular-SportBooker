@@ -2,7 +2,7 @@ body{
 
   background-image: url('../../../../assets/pages/other.png');
   background-size: cover;
-  min-height: 2000px;
+  min-height: 3000px;
   background-color: lightgoldenrodyellow;
 
 }
@@ -53,7 +53,20 @@ mat-divider{
   margin-top: 80px;
   width:90%;
   background-color: rgba(61, 221, 146, 0.8);
+}
 
+#reviews{
+
+  margin-top:80px;
+  width:90%;
+  background-color: rgba(221, 114, 61, 0.868);
+}
+
+#companies{
+
+  margin-top:80px;
+  width:90%;
+  background-color: rgba(221, 61, 82, 0.8)
 }
 
 
@@ -69,7 +82,10 @@ mat-divider{
   flex-direction: column;
   justify-content: center;
   width:50%;
+}
 
+.active{
+  border-right:1px solid rgba(0,0,0,0.16);
 }
 
 .myRoundBox{
@@ -84,4 +100,14 @@ mat-divider{
   margin-top: 80px;
   width:90%;
   background-color: rgba(221, 221, 61, 0.8)
+}
+
+a{
+  cursor:  pointer;
+}
+
+mat-paginator{
+  background:none;
+  font-weight: bold;
+  font-size: large;
 }

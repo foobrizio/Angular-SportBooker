@@ -24,6 +24,8 @@ import { ReviewComponent } from './components/pages/company-page/review/review.c
 import { BookingDialogComponent } from './components/dialog/booking-dialog/booking-dialog.component';
 import { UserPageComponent } from './components/pages/user-page/user-page.component';
 import { UserService } from './services/user/user.service';
+import { CompanyDialogComponent } from './components/dialog/company-dialog/company-dialog.component';
+import { FieldDialogComponent } from './components/dialog/field-dialog/field-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { UserService } from './services/user/user.service';
     CompactFieldComponent,
     ReviewComponent,
     BookingDialogComponent,
-    UserPageComponent
+    UserPageComponent,
+    CompanyDialogComponent,
+    FieldDialogComponent
   ],
   imports: [
     BrowserModule,

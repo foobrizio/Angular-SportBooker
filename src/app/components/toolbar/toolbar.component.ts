@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/classes/user';
+import { CompanyDialogComponent } from '../dialog/company-dialog/company-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { FieldDialogComponent } from '../dialog/field-dialog/field-dialog.component';
+import { Company } from 'src/app/classes/company';
 
 @Component({
   selector: 'app-toolbar',
@@ -12,8 +16,9 @@ export class ToolbarComponent implements OnInit {
 
   isAuthenticated: boolean;
   user: User;
+  companyList: Company[];
 
-  constructor(public oktaAuth: OktaAuthService, private userService: UserService) { }
+  constructor(public dialog: MatDialog, public oktaAuth: OktaAuthService, private userService: UserService) { }
 
   async ngOnInit() {
     this.isAuthenticated = await this.oktaAuth.isAuthenticated();
@@ -46,6 +51,7 @@ export class ToolbarComponent implements OnInit {
       next: x => {
         console.log('Utente loggato');
         this.user = x;
+        this.getCompanyList();
       },
       error: err => {
         if (err.error === 'User doesn\'t exist!!!'){
@@ -62,7 +68,7 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  registerUser( user: User){
+  async registerUser( user: User){
 
     this.userService.registerUser(user).subscribe({
       next: x => {
@@ -80,6 +86,48 @@ export class ToolbarComponent implements OnInit {
       complete: () => {
         console.log('Completato');
       }
+    });
+
+  } // registerUser
+
+
+  async getCompanyList(){
+
+    this.userService.getCompanies(this.user.email).subscribe({
+      next: x => {
+        this.companyList = x;
+      },
+      error: err => {
+        if (err.error === 'User doesn\'t exists!!!'){
+          console.log('L\'utente non esiste???');
+        }
+        else if (err.error === 'No results!!!'){
+          this.companyList = [];
+          console.log('Nessuna struttura trovata');
+          console.log(err);
+        }
+      },
+      complete: () => {
+        console.log('Completato');
+      }
+
+    });
+  } // getCompanyList
+
+
+  openCompanyDialog(): void{
+
+    const dialogRef = this.dialog.open(CompanyDialogComponent, {
+      height: '450px',
+      width: '1000px',
+    });
+  }
+
+  openFieldDialog(): void{
+
+    const dialogRef = this.dialog.open(FieldDialogComponent, {
+      height: '400px',
+      width: '800px'
     });
 
   }

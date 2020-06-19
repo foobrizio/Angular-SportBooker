@@ -1,0 +1,131 @@
+<body>
+  <h1 mat-dialog-title class="title">Creazione nuova struttura</h1>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content class="mat-typography container">
+
+    <div class="forms">
+
+      <div class="row">
+
+        <mat-form-field class="standard" id="nome">
+          <mat-label>Nome</mat-label>
+          <input matInput [(ngModel)]="name" required placeholder="Nome">
+          <mat-hint>Il nome della tua struttura</mat-hint>
+          <mat-icon matSuffix>account_box</mat-icon>
+          <mat-error *ngIf="this.name===undefined">
+            Inserisci un nome alla struttura!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="long">
+          <mat-label>Descrizione</mat-label>
+          <input matInput [(ngModel)]="description" #descriptionInput  maxlength="256" placeholder="Ex. Questa struttura è...">
+          <mat-hint align="end">{{descriptionInput.value.length}} / 256</mat-hint>
+          <mat-icon matSuffix>create</mat-icon>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+
+        <mat-form-field class="standard" id="città">
+          <mat-label>Città</mat-label>
+          <input matInput [(ngModel)]="city" #cityInput required maxlength="30">
+          <mat-hint align="end">{{cityInput.value.length}} / 30</mat-hint>
+          <mat-icon matSuffix>location_city</mat-icon>
+          <mat-error align="start">
+            Inserire una città!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field  class="long" id="indirizzo">
+          <mat-label>Indirizzo</mat-label>
+          <input matInput [(ngModel)]="address" #addressInput required maxlength="60" placeholder="Via, Piazza">
+          <mat-hint align="end">{{addressInput.value.length}} / 60</mat-hint>
+          <mat-icon matSuffix>add_road</mat-icon>
+          <mat-error *ngIf="this.address===undefined">
+            Inserire un undirizzo!
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+
+        <mat-form-field appearance="legacy" class="standard" id="telefono">
+          <mat-label>Telefono</mat-label>
+          <input matInput [(ngModel)]="phone" [formControl]="phoneFormControl" [errorStateMatcher]="requiredMatcher" required maxlength="12">
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="phoneFormControl.hasError('required') && checked">
+            Inserire un numero di telefono!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="longmail">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="email" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                 placeholder="Ex. user@provider.com">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="emailFormControl.hasError('email')">
+            Inserisci un indirizzo email valido
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+
+        <mat-form-field class="standard" >
+          <mat-label>Giorno libero</mat-label>
+          <mat-select [(ngModel)]="freeDay">
+          <mat-option *ngFor="let day of daysOfWeek" [value]="daysOfWeek.indexOf(day)">
+            {{day}}
+          </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>today</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="standard" >
+          <mat-label>Orario Apertura</mat-label>
+          <mat-select [(ngModel)]="openingTime" required (selectionChange)="updateHours()">
+          <mat-option *ngFor="let hour of availableHours; index as i" [value]="i">
+            {{hour}}:00
+          </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>wb_sunny</mat-icon>
+          <mat-error *ngIf="this.openingTime===undefined">
+            Inserire un orario di apertura!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" class="standard" >
+          <mat-label>Orario Chiusura</mat-label>
+          <mat-select [(ngModel)]="closingTime" required>
+          <mat-option *ngFor="let hour2 of availableClosingHours;" [value]="hour2">
+            {{hour2}}:00
+          </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>nights_stay</mat-icon>
+          <mat-error *ngIf="this.closingTime===undefined">
+            Inserire un orario di chiusura!
+          </mat-error>
+        </mat-form-field>
+
+      </div> <!-- rows -->
+
+      <div class="buttonContainer">
+        <button mat-button (click)="onAnnullaClick()">
+          <mat-icon>thumb_down</mat-icon>
+          Annulla
+        </button>
+        <button mat-button cdkFocusInitia (click)="onCreaClick()"l>
+          <mat-icon>thumb_up</mat-icon>
+          Crea Struttura
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
