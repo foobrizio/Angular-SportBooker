@@ -48,10 +48,14 @@
 
       </div>
       <div class="row" *ngIf="companyList.length>0">
-        <h1>
-          <strong>Strutture possedute:</strong>
-          {{companyList.length}}
-        </h1>
+        <a (click)="scroll('companies')">
+          <h1>
+            <strong>Strutture possedute:</strong>
+            {{companyList.length}}
+          </h1>
+
+        </a>
+
       </div>
     </section>
 
@@ -69,16 +73,22 @@
 
         <div class="active">
           <h1><strong>Attive</strong></h1>
-          <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]">
-
-          </mat-paginator>
+          <div class="list">
+            <div class="element" *ngFor="let res of reservationList">
+              <app-compact-reservation [reservation]=res></app-compact-reservation>
+            </div>
+          </div>
+          <mat-paginator [length]="reservationList?.length" [pageSize]="reservationPageSize" [pageSizeOptions]="reservationPageSizeOptions"></mat-paginator>
         </div>
 
         <div class="expired">
           <h1><strong>Passate</strong></h1>
-          <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]">
-
-          </mat-paginator>
+          <div class="list">
+            <div class="element" *ngFor="let res of expiredReservationList">
+              <app-compact-reservation [reservation]=res></app-compact-reservation>
+            </div>
+          </div>
+          <mat-paginator [length]="expiredReservationList?.length" [pageSize]="expiredReservationPageSize" [pageSizeOptions]="expiredReservationPageSizeOptions"> </mat-paginator>
         </div>
 
       </div>
@@ -94,9 +104,13 @@
 
       <mat-divider></mat-divider>
 
-      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]">
+      <div class="list">
+        <div class="element" *ngFor="let rw of reviewList">
+          <app-compact-review [review]=rw></app-compact-review>
+        </div>
+      </div>
 
-      </mat-paginator>
+      <mat-paginator [length]="reviewList?.length" [pageSize]="reviewPageSize" [pageSizeOptions]="reviewPageSizeOptions"></mat-paginator>
 
     </section>
 
@@ -109,9 +123,13 @@
       </h1>
       <mat-divider></mat-divider>
 
-      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]">
+      <div class="list">
+        <div class="element" *ngFor="let cp of companyList">
+          <app-compact-company [company]=cp></app-compact-company>
+        </div>
+      </div>
 
-      </mat-paginator>
+      <mat-paginator [length]="companyList?.length" [pageSize]="companyPageSize" [pageSizeOptions]="companyPageSizeOptions"></mat-paginator>
 
     </section>
 

@@ -26,6 +26,10 @@ import { UserPageComponent } from './components/pages/user-page/user-page.compon
 import { UserService } from './services/user/user.service';
 import { CompanyDialogComponent } from './components/dialog/company-dialog/company-dialog.component';
 import { FieldDialogComponent } from './components/dialog/field-dialog/field-dialog.component';
+import { CompactCompanyComponent } from './components/pages/user-page/compact-company/compact-company.component';
+import { CompactReviewComponent } from './components/pages/user-page/compact-review/compact-review.component';
+import { CompactReservationComponent } from './components/pages/user-page/compact-reservation/compact-reservation.component';
+import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,11 @@ import { FieldDialogComponent } from './components/dialog/field-dialog/field-dia
     BookingDialogComponent,
     UserPageComponent,
     CompanyDialogComponent,
-    FieldDialogComponent
+    FieldDialogComponent,
+    CompactCompanyComponent,
+    CompactReviewComponent,
+    CompactReservationComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

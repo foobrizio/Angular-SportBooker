@@ -1,7 +1,7 @@
 body{
 
   padding:20px;
-  background-color: lightsalmon;
+  background-color: lightseagreen;
   height: 90%;
 }
 
@@ -24,6 +24,11 @@ body{
   justify-content: space-between;
 }
 
+.company-row{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
 .standard{
 
@@ -37,6 +42,7 @@ body{
 .buttonContainer{
 
   margin-top:30px;
+  width:100%;
   display:inline-flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -52,8 +58,4 @@ body{
 .buttonContainer button:hover{
   background-color: firebrick;
   color: gold;
-}
-
-mat-icon{
-  color: firebrick;
 }

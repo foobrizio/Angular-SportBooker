@@ -1,0 +1,35 @@
+body{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: lemonchiffon;
+  text-align: center;
+}
+
+h1{
+  width: 100%;
+  font-weight: bold;
+  color: firebrick;
+}
+
+.button-container{
+
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.button-container button{
+  margin-bottom: 20px;
+  border-radius: 4.5px 15px;
+  color:firebrick;
+
+}
+
+.button-container button:hover{
+
+  background-color: firebrick;
+  color: gold;
+
+}

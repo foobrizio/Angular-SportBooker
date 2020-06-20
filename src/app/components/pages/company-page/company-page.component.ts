@@ -19,7 +19,13 @@ export class CompanyPageComponent implements OnInit {
   rating: number;
   reviewOrder: string;
   reviewList: Review[];
+  reviewPageSize = 10;
+  reviewPageSizeOptions = [5, 10, 20];
+
   fieldList: Field[];
+  fieldPageSize = 10;
+  fieldPageSizeOptions = [5, 10, 20];
+
   reservationList: Reservation[];
 
   constructor(private reviewService: ReviewService, private companyService: CompanyService, private activatedRoute: ActivatedRoute) { }

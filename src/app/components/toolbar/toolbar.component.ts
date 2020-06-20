@@ -6,6 +6,8 @@ import { CompanyDialogComponent } from '../dialog/company-dialog/company-dialog.
 import { MatDialog } from '@angular/material/dialog';
 import { FieldDialogComponent } from '../dialog/field-dialog/field-dialog.component';
 import { Company } from 'src/app/classes/company';
+import { CompanyService } from 'src/app/services/company/company.service';
+import { Field } from 'src/app/classes/field';
 
 @Component({
   selector: 'app-toolbar',
@@ -18,7 +20,8 @@ export class ToolbarComponent implements OnInit {
   user: User;
   companyList: Company[];
 
-  constructor(public dialog: MatDialog, public oktaAuth: OktaAuthService, private userService: UserService) { }
+  constructor(public dialog: MatDialog, public oktaAuth: OktaAuthService,
+              private userService: UserService, private compService: CompanyService) { }
 
   async ngOnInit() {
     this.isAuthenticated = await this.oktaAuth.isAuthenticated();
@@ -50,6 +53,7 @@ export class ToolbarComponent implements OnInit {
     this.userService.retrieveUser(newUser.email).subscribe({
       next: x => {
         console.log('Utente loggato');
+        console.log(x);
         this.user = x;
         this.getCompanyList();
       },
@@ -95,7 +99,12 @@ export class ToolbarComponent implements OnInit {
 
     this.userService.getCompanies(this.user.email).subscribe({
       next: x => {
-        this.companyList = x;
+        const list: Company[] = [];
+        x.forEach( company => {
+          const c = Company.create(company);
+          list.push(c);
+        });
+        this.companyList = list;
       },
       error: err => {
         if (err.error === 'User doesn\'t exists!!!'){
@@ -121,15 +130,63 @@ export class ToolbarComponent implements OnInit {
       height: '450px',
       width: '1000px',
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === undefined || result === null){
+        return;
+      }
+      this.addCompany(result);
+    });
   }
+
 
   openFieldDialog(): void{
 
     const dialogRef = this.dialog.open(FieldDialogComponent, {
-      height: '400px',
-      width: '800px'
+      height: '450px',
+      width: '800px',
+      data: this.companyList
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === undefined || result === null){
+        return;
+      }
+      console.log(typeof(result));
+      this.addField(result);
+    });
+  }
 
+  async addCompany(result: object){
+    const comp = Company.create(result);
+    comp.owner = this.user.id;
+    console.log(comp);
+    this.compService.addCompany(comp).subscribe({
+      next: x => {
+        console.log('Riceviamo qualcosa');
+        const compy = Company.create(x);
+        this.companyList.push(compy);
+      },
+      error: err => {
+        console.log(err);
+      },
+      complete: () => { console.log('Company added'); }
+    });
+  }
+
+  async addField(result: object){
+
+    const field = Field.create(result);
+    console.log('Vogliamo aggiungere un campo');
+    this.compService.addField(field).subscribe({
+      next: x => {
+        console.log('Campo inserito correttamente');
+      },
+      error: err => {
+        console.log(err);
+      },
+      complete: () => { console.log('Company added'); }
+
+    });
   }
 
 

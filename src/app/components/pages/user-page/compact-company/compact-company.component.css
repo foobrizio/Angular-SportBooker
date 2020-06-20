@@ -1,0 +1,55 @@
+body{
+  background-color: rgba(255,255,255,0.20);
+}
+
+main{
+  padding-top:10px;
+  width:100%;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.column{
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.element{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.elemDescription{
+  padding-right:5px;
+}
+
+.column button{
+
+  margin-bottom: 20px;
+  border-radius: 4.5px 15px;
+  color:firebrick;
+}
+
+.column button:hover{
+  background-color: firebrick;
+  color: gold;
+}
+
+.fieldElement{
+  width:100%;
+  display: inline-block;
+}
+
+.fieldElement h1{
+  width:10%;
+  float:left;
+}
+
+.fieldElement app-compact-field{
+  width:85%;
+  float:right;
+}

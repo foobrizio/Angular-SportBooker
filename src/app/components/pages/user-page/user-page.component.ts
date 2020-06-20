@@ -14,10 +14,23 @@ import { Company } from 'src/app/classes/company';
 export class UserPageComponent implements OnInit {
 
   user: User;
+
   reservationList: Reservation[] = [];
+  reservationPageSize = 10;
+  reservationPageSizeOptions = [5 , 10 , 20];
+
   expiredReservationList: Reservation[] = [];
+  expiredReservationPageSize = 10;
+  expiredReservationPageSizeOptions = [5 , 10 , 20];
+
   reviewList: Review[] = [];
+  reviewPageSize = 10;
+  reviewPageSizeOptions = [5, 10 , 20];
+
   companyList: Company[] = [];
+  companyPageSize = 10;
+  companyPageSizeOptions = [5 , 10 , 20];
+
 
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private oktaAuth: OktaAuthService) { }
 
@@ -133,7 +146,13 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getCompanies(this.user.email).subscribe({
       next: x => {
-        this.companyList = x;
+
+        const list: Company[] = [];
+        x.forEach( company => {
+          const c = Company.create(company);
+          list.push(c);
+        });
+        this.companyList = list;
       },
       error: err => {
         if (err.error === 'User doesn\'t exist!!!'){
@@ -148,10 +167,11 @@ export class UserPageComponent implements OnInit {
     });
   } // getCompanies
 
+
+
   scroll(target: string): void{
 
     const where = document.getElementById(target);
-    console.log(where);
     where.scrollIntoView({behavior: 'smooth'});
   }
 

@@ -5,11 +5,13 @@
   </div>
 </div>
 
-<mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]">
-  <div class="company-container" *ngFor="let cmp of companyList; index as i">
-    <a routerLink="/company" [queryParams]="{id: cmp.id}"><h2>{{cmp.name}}</h2></a>
-    <mat-divider></mat-divider>
-    <app-company [company]=cmp></app-company>
-  </div>
+<div class="company-container" *ngFor="let cmp of companyList; index as i">
+  <a routerLink="/company" [queryParams]="{id: cmp.id}"><h2>{{cmp.name}}</h2></a>
+  <mat-divider></mat-divider>
+  <app-company [company]=cmp></app-company>
+</div>
+
+<mat-paginator [length]="companyList?.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+
 </mat-paginator>
 

@@ -5,7 +5,7 @@ export class Company {
   id: number;
   name: string;
   description: string;
-  owner: string;
+  owner: number;
   phone: string;
   email: string;
   address: string;
@@ -19,11 +19,11 @@ export class Company {
 
   /* Metodo factory che mi crea una Company */
   static create(x: object): Company{
+
     const c = new Company();
     Object.keys(x).forEach( key => {
       c[key] = x[key];
     });
-    console.log('Abbiamo creato ' + c);
     return c;
   }
 
@@ -80,8 +80,4 @@ export class Company {
       default: return 'domenica';
     }
   }
-
-
-
-
 }

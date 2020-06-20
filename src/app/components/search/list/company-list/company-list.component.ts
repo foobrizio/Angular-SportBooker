@@ -11,6 +11,9 @@ export class CompanyListComponent implements OnInit, OnChanges, List {
 
   @Input() companyList: Company[];
 
+  pageSize = 10;
+  pageSizeOptions = [5, 10 , 20];
+
   constructor() { }
 
   ngOnInit(): void { }

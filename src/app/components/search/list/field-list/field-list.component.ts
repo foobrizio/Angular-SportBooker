@@ -9,6 +9,10 @@ import { Field } from 'src/app/classes/field';
 })
 export class FieldListComponent implements OnInit, OnChanges, List {
 
+
+  pageSize = 10;
+  pageSizeOptions = [5, 10, 20];
+
   @Input() fieldList: Field[];
 
   constructor() { }
