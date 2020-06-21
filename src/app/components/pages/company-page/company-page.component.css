@@ -183,3 +183,9 @@ a:hover{
   font-weight: bold;
   cursor: pointer;
 }
+
+mat-paginator{
+
+  background:none;
+  font-weight: bold;
+}

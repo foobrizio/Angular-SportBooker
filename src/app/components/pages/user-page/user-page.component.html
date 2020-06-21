@@ -125,7 +125,7 @@
 
       <div class="list">
         <div class="element" *ngFor="let cp of companyList">
-          <app-compact-company [company]=cp></app-compact-company>
+          <app-compact-company (companyChanged)="getCompanies()" [company]=cp></app-compact-company>
         </div>
       </div>
 

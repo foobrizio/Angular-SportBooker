@@ -37,3 +37,10 @@ a:link, a:visited, a:active{
 a:hover{
   color:firebrick;
 }
+
+mat-paginator{
+
+  background:none;
+  font-weight: bold;
+  font-size: large;
+}

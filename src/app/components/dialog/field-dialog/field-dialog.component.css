@@ -17,6 +17,10 @@ body{
   flex-direction: column;
 }
 
+mat-form-field mat-icon {
+  color:firebrick;
+}
+
 .row{
   margin-top:30px;
   display:inline-flex;
@@ -59,3 +63,5 @@ body{
   background-color: firebrick;
   color: gold;
 }
+
+

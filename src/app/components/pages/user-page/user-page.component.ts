@@ -78,8 +78,6 @@ export class UserPageComponent implements OnInit {
         window.scrollTo(0, 0);
       }
     });
-
-
   }
 
   async getActiveReservations(){

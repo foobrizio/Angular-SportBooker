@@ -75,6 +75,10 @@
         <mat-icon>delete</mat-icon>
         Elimina
       </button>
+      <button mat-raised-button (click)="onAddFieldClick()" color="accent">
+        <mat-icon>add</mat-icon>
+        Nuovo campo
+      </button>
 
     </div>
 
@@ -86,7 +90,7 @@
     <h2 *ngIf="fieldList?.length>0">Campi associati:</h2>
     <div class="fieldElement" *ngFor="let fld of fieldList; index as i">
       <h1>{{i+1}})</h1>
-      <app-compact-field [field]=fld view="owner"></app-compact-field>
+      <app-compact-field (changed)="retrieveFields()" [field]=fld view="owner"></app-compact-field>
     </div>
 
 

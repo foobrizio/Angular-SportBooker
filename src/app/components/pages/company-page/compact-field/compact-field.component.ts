@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Field } from 'src/app/classes/field';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingDialogComponent } from 'src/app/components/dialog/booking-dialog/booking-dialog.component';
@@ -6,6 +6,7 @@ import { User } from 'src/app/classes/user';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { ConfirmDialogComponent } from 'src/app/components/dialog/confirm-dialog/confirm-dialog.component';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { FieldDialogComponent } from 'src/app/components/dialog/field-dialog/field-dialog.component';
 
 @Component({
   selector: 'app-compact-field',
@@ -16,6 +17,8 @@ export class CompactFieldComponent implements OnInit {
 
   @Input() field: Field;
   @Input() view: string;
+
+  @Output() changed = new EventEmitter<string>();
 
   imageFolder = 'assets/search/';
   imageUrl: string;
@@ -72,10 +75,24 @@ export class CompactFieldComponent implements OnInit {
     });
   }
 
+  /* Modifica il campo */
   onEditClick(): void{
+
+    const dialogRef = this.dialog.open(FieldDialogComponent, {
+      height: '450px',
+      width: '800px',
+      data: {field: this.field, mode: 'edit', from: 'inside'}
+    });
+
+    dialogRef.afterClosed().subscribe( result => {
+
+      const editedField = Field.create(result);
+      this.editField(editedField);
+    });
 
   }
 
+  /* Elimina il campo */
   onDeleteClick(): void{
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -91,19 +108,22 @@ export class CompactFieldComponent implements OnInit {
   }
 
 
-  editField(): void{
+  editField(field: Field): void{
 
-    this.companyService.updateField(this.field);
+    this.companyService.updateField(field).subscribe({
+      next: x => {
+        this.changed.emit('Field updated');
+      }
+    });
 
   }
 
   deleteField(): void{
 
-    console.log('Vogliamo cancellare un campo');
-    this.field = undefined;
     this.companyService.deleteField(this.field).subscribe({
       next: x => {
         console.log(x);
+        this.changed.emit('Field deleted');
       },
       error: err => {
         if (err.error.text === 'Field doesn\'t exist!!!'){

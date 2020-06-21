@@ -129,6 +129,7 @@ export class ToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(CompanyDialogComponent, {
       height: '450px',
       width: '1000px',
+      data: {mode: 'create'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -145,7 +146,7 @@ export class ToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(FieldDialogComponent, {
       height: '450px',
       width: '800px',
-      data: this.companyList
+      data: { companyList: this.companyList, mode: 'create', from: 'outside'}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === undefined || result === null){
