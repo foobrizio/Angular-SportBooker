@@ -19,7 +19,6 @@ export class CompanyComponent implements OnInit {
 
     this.reviewService.getRating(this.company.id).subscribe({
       next: x => {
-        console.log('Abbiamo ottenuto il rating ' + x);
         this.rating = x;
       },
       error: err => {
@@ -30,8 +29,7 @@ export class CompanyComponent implements OnInit {
           console.log('Observer ha generato l\'errore ');
           console.log(err);
         }
-      },
-      complete: () => console.log('Observer è stato completato')
+      }
 
     });
   }

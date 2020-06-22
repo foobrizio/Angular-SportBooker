@@ -53,8 +53,8 @@ export class ToolbarComponent implements OnInit {
     this.userService.retrieveUser(newUser.email).subscribe({
       next: x => {
         console.log('Utente loggato');
-        console.log(x);
-        this.user = x;
+        this.user = User.create(x);
+        console.log(this.user);
         this.getCompanyList();
       },
       error: err => {

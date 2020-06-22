@@ -75,18 +75,18 @@ export class SearchPageComponent implements OnInit {
     if (myParams.lookingFor === 'fields'){
       this.searchService.getFields().subscribe({
         next: x => {
-          this.fieldList?.setList(x);
-          console.log('Observer ha ottenuto il valore ' + x );
-        },
-        error: err => {
-          if (err.error.text === 'No results!!!'){
+          const message: any = x;
+          if (message.message === 'No results!!!'){
             console.log('Nessun campo ricevuto');
             this.fieldList?.resetList();
           }
           else{
-            console.log('Observer ha generato l\'errore ');
-            console.log(err);
+            this.fieldList?.setList(x);
           }
+        },
+        error: err => {
+          console.log('Observer ha generato l\'errore ');
+          console.log(err);
         },
         complete: () => console.log('Observer è stato completato')
 
@@ -95,18 +95,17 @@ export class SearchPageComponent implements OnInit {
     else{
       this.searchService.getCompanies().subscribe({
         next: x => {
-          console.log('Observer ha ottenuto le seguenti struture ' + x);
-          this.companyList?.setList(x);
-        },
-        error: err => {
-          if (err.error.text === 'No results!!!'){
-            console.log('Nessuna struttura ricevuta');
+          const message: any = x;
+          if (message.message === 'No results!!!'){
             this.companyList?.resetList();
           }
           else{
-            console.log('Observer ha generato l\'errore ');
-            console.log(err);
+            this.companyList?.setList(x);
           }
+        },
+        error: err => {
+          console.log('Observer ha generato l\'errore ');
+          console.log(err);
         },
         complete: () => console.log('Observer è stato completato')
       });

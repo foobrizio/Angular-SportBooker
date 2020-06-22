@@ -7,6 +7,9 @@ import { ReservationService } from 'src/app/services/reservation/reservation.ser
 import { ConfirmDialogComponent } from 'src/app/components/dialog/confirm-dialog/confirm-dialog.component';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { FieldDialogComponent } from 'src/app/components/dialog/field-dialog/field-dialog.component';
+import { UserService } from 'src/app/services/user/user.service';
+import { OktaAuthService } from '@okta/okta-angular';
+import { Reservation } from 'src/app/classes/reservation';
 
 @Component({
   selector: 'app-compact-field',
@@ -17,6 +20,7 @@ export class CompactFieldComponent implements OnInit {
 
   @Input() field: Field;
   @Input() view: string;
+  user: User;
 
   @Output() changed = new EventEmitter<string>();
 
@@ -24,7 +28,8 @@ export class CompactFieldComponent implements OnInit {
   imageUrl: string;
 
 
-  constructor(public dialog: MatDialog, private reservationService: ReservationService, private companyService: CompanyService) { }
+  constructor(public dialog: MatDialog, private resServ: ReservationService, private compServ: CompanyService,
+              private userServ: UserService, private okta: OktaAuthService) { }
 
   ngOnInit(): void {
     switch (this.field.sport){
@@ -40,40 +45,77 @@ export class CompactFieldComponent implements OnInit {
     }
   }
 
-  openDialog(): void{
+
+  onBookClicked(): void {
 
     let reservationListObtained = [];
-    this.reservationService.getActiveReservationsForField(this.field.id).subscribe({
+    this.getUser();
+    this.resServ.getActiveReservationsForField(this.field.id).subscribe({
       next: x => {
         reservationListObtained = x;
+        this.openBookingDialog(reservationListObtained);
       },
       error: err => {
         if (err.error.text === 'Field doesn\'t exist!!!'){
           console.log('Nessun campo associato all\'id');
         }
         else if (err.error.text === 'No results!!!'){
-          console.log('No results!!!');
+          this.openBookingDialog([]);
         }
         else{
           console.log('Observer ha generato l\'errore ');
           console.log(err);
         }
-      },
-      complete: () => console.log('Observer è stato completato')
+      }
     });
+
+  }
+
+  openBookingDialog(res: Reservation[]): void{
+
     const dialogRef = this.dialog.open(BookingDialogComponent, {
       height: '400px',
       width: '600px',
       data: {
         field: this.field,
-        reservationList: reservationListObtained
+        reservationList: res
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result){
+        const reservation = result.reservation;
+        const amount = result.amount;
+        this.deployReservation(reservation, amount);
+      }
     });
   }
+
+  async deployReservation(res: Reservation, amount: number){
+
+    const bookingDate = new Date(res.bookingTime);
+    for (let i = 0; i < amount; i++){
+      bookingDate.setHours(bookingDate.getHours() + i);
+      const newRes = new Reservation();
+      newRes.booker = this.user;
+      newRes.field = res.field;
+      newRes.bookingTime = bookingDate.getTime();
+
+      this.resServ.addReservation(newRes).subscribe({
+        next: x => {
+          console.log('Tutto ok');
+          console.log(x);
+        },
+        error: err => {
+          console.log('Errore');
+          console.log(err);
+        }
+      });
+
+    }
+  }
+
+
 
   /* Modifica il campo */
   onEditClick(): void{
@@ -110,7 +152,7 @@ export class CompactFieldComponent implements OnInit {
 
   editField(field: Field): void{
 
-    this.companyService.updateField(field).subscribe({
+    this.compServ.updateField(field).subscribe({
       next: x => {
         this.changed.emit('Field updated');
       }
@@ -120,7 +162,7 @@ export class CompactFieldComponent implements OnInit {
 
   deleteField(): void{
 
-    this.companyService.deleteField(this.field).subscribe({
+    this.compServ.deleteField(this.field).subscribe({
       next: x => {
         console.log(x);
         this.changed.emit('Field deleted');
@@ -141,6 +183,21 @@ export class CompactFieldComponent implements OnInit {
 
     });
 
+
+  }
+
+  async getUser(){
+
+    const email = (await this.okta.getUser()).preferred_username;
+    this.userServ.retrieveUser(email).subscribe({
+      next: x => {
+        this.user = User.create(x);
+      },
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
+    });
 
   }
 

@@ -31,7 +31,7 @@
     </div>
 
     <div  *ngIf="view==='customer'" class="button-container">
-      <button color="accent" mat-raised-button (click)="openDialog()"><mat-icon>sports_handball</mat-icon>Prenota</button>
+      <button color="accent" mat-raised-button (click)="onBookClicked()"><mat-icon>sports_handball</mat-icon>Prenota</button>
     </div>
     <div  *ngIf="view==='owner'" class="button-container">
       <button mat-raised-button (click)="onEditClick()" color="accent">

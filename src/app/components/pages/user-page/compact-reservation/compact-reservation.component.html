@@ -1,1 +1,17 @@
-<p>compact-reservation works!</p>
+<body>
+  <div class="content">
+    <h3>Campo di {{reservation.field.sport}} #{{reservation.field.id}} presso
+      <a routerLink="/company" [queryParams]="{id: reservation.field.ownerCompany.id}">{{reservation.field.ownerCompany.name}}</a></h3>
+    <h3><strong>Orario:</strong> {{date}}</h3>
+  </div>
+
+  <div class="button-container" *ngIf="active">
+    <button mat-raised-button color="accent" (click)="onUndoClick()">
+      <mat-icon>undo</mat-icon>
+      Disdici
+    </button>
+
+  </div>
+
+
+</body>

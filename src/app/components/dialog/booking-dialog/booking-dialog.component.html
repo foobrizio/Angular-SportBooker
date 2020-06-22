@@ -10,7 +10,7 @@
 
       <mat-form-field id="dateField">
         <mat-label>Scegli il giorno</mat-label>
-        <input [(ngModel)]="selectedDate" (dateChange)="setAvailableHours()" matInput [min]="getMinDate()" [max]="getMaxDate()" [matDatepicker]="picker">
+        <input [(ngModel)]="selectedDate" (dateChange)="setAvailableHours()" matInput [min]="minDate" [max]="getMaxDate()" [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -18,8 +18,9 @@
       <mat-form-field id="timeField">
         <mat-label>Orario</mat-label>
         <mat-select [(value)]="selectedTime" (selectionChange)="setHoursInARow()" placeholder="A che ora vuoi prenotare?">
-          <mat-option *ngFor="let hour of availableHours" value="#{{hour}}:00">{{hour}}:00</mat-option>
+          <mat-option *ngFor="let hour of availableHours" value="{{hour}}:00">{{hour}}:00</mat-option>
         </mat-select>
+        <mat-icon matSuffix>access_time</mat-icon>
       </mat-form-field>
 
     </div>
@@ -28,17 +29,25 @@
 
       <mat-form-field id="numHoursField">
         <mat-label>Quante ore di fila?</mat-label>
-        <mat-select [(ngModel)]="selectedAmount">
+        <mat-select [(ngModel)]="selectedAmount" (selectionChange)="checkAvailability()">
           <mat-option *ngFor="let times of getHoursInARow()" value="{{times}}">{{times}}</mat-option>
         </mat-select>
+        <mat-icon matSuffix>more_time</mat-icon>
+        <mat-error *ngIf="!amountAvailable">Le ore inserite non sono tutte disponibili</mat-error>
       </mat-form-field>
 
     </div>
 
 
   </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button cdkFocusInitia (click)="onOkClick()"l>Ok</button>
+  <div mat-dialog-actions class="button-container">
+    <button mat-raised-button color="accent" (click)="onNoClick()">
+      <mat-icon>thumb_down</mat-icon>
+      Annulla
+    </button>
+    <button mat-raised-button color="accent" (click)="onOkClick()">
+      <mat-icon>thumb_up</mat-icon>
+      Conferma
+    </button>
   </div>
 </body>

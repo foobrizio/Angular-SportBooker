@@ -74,8 +74,9 @@
         <div class="active">
           <h1><strong>Attive</strong></h1>
           <div class="list">
-            <div class="element" *ngFor="let res of reservationList">
-              <app-compact-reservation [reservation]=res></app-compact-reservation>
+            <div class="element" *ngFor="let res of reservationList; index as i">
+              <h2>{{i+1}})</h2>
+              <app-compact-reservation (undone)="undoReservation($event)" [reservation]=res></app-compact-reservation>
             </div>
           </div>
           <mat-paginator [length]="reservationList?.length" [pageSize]="reservationPageSize" [pageSizeOptions]="reservationPageSizeOptions"></mat-paginator>
@@ -84,7 +85,8 @@
         <div class="expired">
           <h1><strong>Passate</strong></h1>
           <div class="list">
-            <div class="element" *ngFor="let res of expiredReservationList">
+            <div class="element" *ngFor="let res of expiredReservationList; index as i">
+              <h2>{{i+1}})</h2>
               <app-compact-reservation [reservation]=res></app-compact-reservation>
             </div>
           </div>

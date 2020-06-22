@@ -53,4 +53,11 @@ export class UserService {
     const paramz = new HttpParams().set('email', email);
     return this.http.get<Company[]>(this.mainUrl + '/myCompanies/', {params: paramz});
   }
+
+  deleteReservation(res: Reservation): Observable<string>{
+
+    const paramz = new HttpParams().set('id', String(res.id));
+    const options = {params: paramz};
+    return this.http.delete<string>(this.mainUrl + '/myReservations', options);
+  }
 }

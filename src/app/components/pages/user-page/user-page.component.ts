@@ -6,6 +6,8 @@ import { OktaAuthService } from '@okta/okta-angular';
 import { Reservation } from 'src/app/classes/reservation';
 import { Review } from 'src/app/classes/review';
 import { Company } from 'src/app/classes/company';
+import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   templateUrl: './user-page.component.html',
@@ -32,7 +34,8 @@ export class UserPageComponent implements OnInit {
   companyPageSizeOptions = [5 , 10 , 20];
 
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private oktaAuth: OktaAuthService) { }
+  constructor(private snackBar: MatSnackBar, private activatedRoute: ActivatedRoute, private userService: UserService,
+              private oktaAuth: OktaAuthService) { }
 
   ngOnInit(): void {
 
@@ -84,18 +87,18 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getActiveReservations(this.user.email).subscribe({
       next: x => {
-        this.reservationList = x;
-      },
-      error: err => {
-        if (err.error === 'User doesn\'t exist!!!'){
-          console.log('L\'utente sta accedendo per la prima volta');
+        const message: any = x;
+        if (message.message === 'No results!!!'){
+          this.reservationList = [];
         }
         else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+          this.reservationList = x;
         }
       },
-      complete: () => { console.log('Completed'); }
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
     });
   } // getActiveReservations
 
@@ -104,18 +107,18 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getExpiredReservations(this.user.email).subscribe({
       next: x => {
-        this.expiredReservationList = x;
-      },
-      error: err => {
-        if (err.error === 'User doesn\'t exist!!!'){
-          console.log('L\'utente sta accedendo per la prima volta');
+        const message: any = x;
+        if (message.message === 'No results!!!'){
+          this.expiredReservationList = [];
         }
         else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+          this.expiredReservationList = x;
         }
       },
-      complete: () => { console.log('Completed'); }
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
     });
   } // getExpiredReservations
 
@@ -124,18 +127,18 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getReviews(this.user.email).subscribe({
       next: x => {
-        this.reviewList = x;
-      },
-      error: err => {
-        if (err.error === 'User doesn\'t exist!!!'){
-          console.log('L\'utente sta accedendo per la prima volta');
+        const message: any = x;
+        if (message.message === 'No results!!!'){
+          this.reviewList = [];
         }
         else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+          this.reviewList = x;
         }
       },
-      complete: () => { console.log('Completed'); }
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
     });
   } // getReviews
 
@@ -144,26 +147,45 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getCompanies(this.user.email).subscribe({
       next: x => {
-
-        const list: Company[] = [];
-        x.forEach( company => {
-          const c = Company.create(company);
-          list.push(c);
-        });
-        this.companyList = list;
-      },
-      error: err => {
-        if (err.error === 'User doesn\'t exist!!!'){
-          console.log('L\'utente sta accedendo per la prima volta');
+        const message: any = x;
+        if (message.message === 'No results!!!'){
+          this.companyList = [];
         }
         else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+          const list: Company[] = [];
+          x.forEach( company => {
+            const c = Company.create(company);
+            list.push(c);
+          });
+          this.companyList = list;
         }
       },
-      complete: () => { console.log('Completed'); }
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
     });
   } // getCompanies
+
+
+  undoReservation(res: Reservation){
+
+    this.userService.deleteReservation(res).subscribe({
+      next: x => {
+        const message: any = x;
+        if (message.message === 'La prenotazione è stata cancellata'){
+          this.getActiveReservations();
+          this.snackBar.open('Prenotazione annullata', 'OK', {
+          duration: 5000
+          });
+        }
+
+      },
+      error: err => {
+          console.log(err);
+      }
+    });
+  }
 
 
 

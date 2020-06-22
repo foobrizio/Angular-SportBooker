@@ -16,6 +16,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -28,7 +30,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 const homeComponents = [ MatButtonModule, MatToolbarModule, MatIconModule, MatListModule, MatCardModule, MatDividerModule];
 const searchComponents1 = [ MatInputModule, MatFormFieldModule, MatSelectModule, MatRadioModule, MatCheckboxModule];
 const dateComponents = [ MatDatepickerModule, MatNativeDateModule];
-const dialogComponents = [ MatDialogModule, FormsModule, ReactiveFormsModule];
+const dialogComponents = [ MatDialogModule, FormsModule, ReactiveFormsModule, MatSnackBarModule];
 const classComponents = [ MatMenuModule, MatPaginatorModule];
 
 @NgModule({

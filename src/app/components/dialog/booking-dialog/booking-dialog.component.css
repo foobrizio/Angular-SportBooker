@@ -15,6 +15,11 @@ mat-form-field{
   padding:5px 20px;
 }
 
+mat-form-field mat-icon{
+  color:firebrick;
+}
+
+
 .container{
   padding-top:20px;
 }
@@ -24,3 +29,20 @@ mat-form-field{
   flex-direction: row;
   justify-content: space-between;
 }
+
+.button-container{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+}
+
+.button-container button{
+
+  color:firebrick;
+  border-radius: 4.5px 15px;
+}
+.button-container button:hover{
+  background-color: firebrick;
+  color: gold;
+}
+

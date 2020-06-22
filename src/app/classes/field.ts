@@ -1,5 +1,4 @@
 import { Company } from './company';
-import { create } from 'domain';
 
 export class Field {
 
