@@ -22,15 +22,8 @@ export class CompanyComponent implements OnInit {
         this.rating = x;
       },
       error: err => {
-        if (err.error.text === 'No results!!!'){
-          this.rating = 0.0;
-        }
-        else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
-        }
+        console.log(err);
       }
-
     });
   }
 

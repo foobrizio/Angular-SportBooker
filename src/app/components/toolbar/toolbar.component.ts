@@ -8,6 +8,7 @@ import { FieldDialogComponent } from '../dialog/field-dialog/field-dialog.compon
 import { Company } from 'src/app/classes/company';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Field } from 'src/app/classes/field';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-toolbar',
@@ -21,7 +22,7 @@ export class ToolbarComponent implements OnInit {
   companyList: Company[];
 
   constructor(public dialog: MatDialog, public oktaAuth: OktaAuthService,
-              private userService: UserService, private compService: CompanyService) { }
+              private userService: UserService, private compService: CompanyService, private snackBar: MatSnackBar) { }
 
   async ngOnInit() {
     this.isAuthenticated = await this.oktaAuth.isAuthenticated();
@@ -37,10 +38,10 @@ export class ToolbarComponent implements OnInit {
   login(): void{
 
     this.oktaAuth.loginRedirect();
-
   }
 
   logout(): void{
+
     this.oktaAuth.logout();
   }
 
@@ -52,23 +53,22 @@ export class ToolbarComponent implements OnInit {
     newUser.email = (await this.oktaAuth.getUser()).preferred_username;
     this.userService.retrieveUser(newUser.email).subscribe({
       next: x => {
-        console.log('Utente loggato');
-        this.user = User.create(x);
-        console.log(this.user);
-        this.getCompanyList();
-      },
-      error: err => {
-        if (err.error === 'User doesn\'t exist!!!'){
-          console.log('L\'utente sta accedendo per la prima volta');
+        const message: any = x;
+        if (message.message === 'User doesn\'t exist!!!'){ /* Ci stiamo connettendo al sito per la prima volta */
           this.user = newUser;
           this.registerUser(newUser);
         }
         else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+          console.log('Utente loggato');
+          this.user = User.create(x);
+          console.log(this.user);
+          this.getCompanyList();
         }
       },
-      complete: () => { console.log('Completed'); }
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
     });
   }
 
@@ -76,19 +76,19 @@ export class ToolbarComponent implements OnInit {
 
     this.userService.registerUser(user).subscribe({
       next: x => {
-        console.log(x);
-      },
-      error: err => {
-        if (err.error === 'User already exists!!!'){
-          console.log('Impossibile registrare. L\' utente esiste già');
+        const message: any = x;
+        if (message.message === 'User already exists!!!'){
+          console.log('Impossibile registrarsi, in quanto l\' utente esiste già');
         }
         else{
-          console.log('Impossibile registrare l\'utente');
-          console.log(err);
+          this.snackBar.open('Benvenuto', 'OK', {
+            duration: 5000
+            });
         }
       },
-      complete: () => {
-        console.log('Completato');
+      error: err => {
+        console.log('Impossibile registrare l\'utente');
+        console.log(err);
       }
     });
 
@@ -99,27 +99,26 @@ export class ToolbarComponent implements OnInit {
 
     this.userService.getCompanies(this.user.email).subscribe({
       next: x => {
-        const list: Company[] = [];
-        x.forEach( company => {
-          const c = Company.create(company);
-          list.push(c);
-        });
-        this.companyList = list;
-      },
-      error: err => {
-        if (err.error === 'User doesn\'t exists!!!'){
+        const message: any = x;
+        if (message.message === 'User doesn\'t exist!!!'){
           console.log('L\'utente non esiste???');
         }
-        else if (err.error === 'No results!!!'){
+        else if (message.message === 'No results!!!'){
           this.companyList = [];
           console.log('Nessuna struttura trovata');
-          console.log(err);
+        }
+        else{
+          const list: Company[] = [];
+          x.forEach( company => {
+            const c = Company.create(company);
+            list.push(c);
+          });
+          this.companyList = list;
         }
       },
-      complete: () => {
-        console.log('Completato');
+      error: err => {
+        console.log(err);
       }
-
     });
   } // getCompanyList
 
@@ -163,33 +162,42 @@ export class ToolbarComponent implements OnInit {
     console.log(comp);
     this.compService.addCompany(comp).subscribe({
       next: x => {
-        console.log('Riceviamo qualcosa');
-        const compy = Company.create(x);
-        this.companyList.push(compy);
+        const message: any = x;
+        if (message === 'User doesn\'t exist!!!'){
+          console.log('L\'utente non esiste???');
+        }
+        else{
+          const compy = Company.create(x);
+          this.companyList.push(compy);
+          this.snackBar.open('Struttura create con successo', 'OK', {
+            duration: 5000
+          });
+        }
       },
       error: err => {
         console.log(err);
-      },
-      complete: () => { console.log('Company added'); }
+      }
     });
   }
 
   async addField(result: object){
 
     const field = Field.create(result);
-    console.log('Vogliamo aggiungere un campo');
     this.compService.addField(field).subscribe({
       next: x => {
-        console.log('Campo inserito correttamente');
+        const message: any = x;
+        if (message.message === 'Company doesn\'t exist!!!'){
+          console.log('La struttura non esiste');
+        }
+        else{
+          this.snackBar.open('Campo inserito correttamente', 'OK', {
+            duration: 5000
+            });
+        }
       },
       error: err => {
         console.log(err);
-      },
-      complete: () => { console.log('Company added'); }
-
+      }
     });
   }
-
-
-
 }

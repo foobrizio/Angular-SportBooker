@@ -7,6 +7,7 @@ import { ReservationService } from 'src/app/services/reservation/reservation.ser
 import { Reservation } from 'src/app/classes/reservation';
 import { UserService } from 'src/app/services/user/user.service';
 import { OktaAuthService } from '@okta/okta-angular';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class FieldComponent implements OnInit {
 
   user: User;
 
-  constructor(public dialog: MatDialog, private resServ: ReservationService, private userServ: UserService, private okta: OktaAuthService){
+  constructor(public dialog: MatDialog, private resServ: ReservationService, private userServ: UserService,
+              private okta: OktaAuthService, private snackBar: MatSnackBar){
 
    }
 
@@ -43,20 +45,20 @@ export class FieldComponent implements OnInit {
     this.getUser();
     this.resServ.getActiveReservationsForField(this.field.id).subscribe({
       next: x => {
-        reservationListObtained = x;
-        this.openBookingDialog(reservationListObtained);
-      },
-      error: err => {
-        if (err.error.text === 'Field doesn\'t exist!!!'){
-          console.log('Nessun campo associato all\'id');
-        }
-        else if (err.error.text === 'No results!!!'){
+        const message: any = x;
+        if (message.message === 'No results!!!'){
           this.openBookingDialog([]);
         }
-        else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+        else if (message.message === 'Field doesn\'t exist!!!'){
+          console.log('Nessun campo associato all\' id');
         }
+        else{
+          reservationListObtained = x;
+          this.openBookingDialog(reservationListObtained);
+        }
+      },
+      error: err => {
+        console.log(err);
       }
     });
   } // onBookClicked
@@ -93,11 +95,20 @@ export class FieldComponent implements OnInit {
 
       this.resServ.addReservation(newRes).subscribe({
         next: x => {
-          console.log('Tutto ok');
-          console.log(x);
+          const message: any = x;
+          if (message.message === 'Campo già occupato'){
+            console.log('Campo già occupato');
+            this.snackBar.open('Campo già occupato', 'OK', {
+              duration: 5000
+            });
+          }
+          else{
+            this.snackBar.open('Prenotazione effettuata con successo', 'OK', {
+              duration: 5000
+            });
+          }
         },
         error: err => {
-          console.log('Errore');
           console.log(err);
         }
       });
@@ -111,10 +122,15 @@ export class FieldComponent implements OnInit {
     const email = (await this.okta.getUser()).preferred_username;
     this.userServ.retrieveUser(email).subscribe({
       next: x => {
-        this.user = User.create(x);
+        const message: any = x;
+        if (message.message === 'User doesn\'t exist!!!'){
+          console.log('L\'utente non esiste');
+        }
+        else{
+          this.user = User.create(x);
+        }
       },
       error: err => {
-        console.log('Observer ha generato l\'errore ');
         console.log(err);
       }
     });

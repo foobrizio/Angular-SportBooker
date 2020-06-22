@@ -6,6 +6,7 @@ import { ConfirmDialogComponent } from 'src/app/components/dialog/confirm-dialog
 import { Field } from 'src/app/classes/field';
 import { FieldDialogComponent } from 'src/app/components/dialog/field-dialog/field-dialog.component';
 import { CompanyDialogComponent } from 'src/app/components/dialog/company-dialog/company-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class CompactCompanyComponent implements OnInit {
 
   freeDayToString: string;
 
-  constructor(public dialog: MatDialog, private companyService: CompanyService) { }
+  constructor(public dialog: MatDialog, private companyService: CompanyService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -60,7 +61,6 @@ export class CompactCompanyComponent implements OnInit {
       if (typeof(result) === 'boolean' && result){
 
         this.deleteCompany();
-        console.log('Vorremmo eliminare la struttura');
       }
 
     });
@@ -91,6 +91,9 @@ export class CompactCompanyComponent implements OnInit {
     this.companyService.addField(field).subscribe({
       next: x => {
         this.retrieveFields();
+        this.snackBar.open('Campo aggiunto', 'OK', {
+          duration: 5000
+          });
       }
     });
   }
@@ -125,6 +128,9 @@ export class CompactCompanyComponent implements OnInit {
 
     this.companyService.deleteCompany(this.company).subscribe({
       next: x => {
+        this.snackBar.open('Struttura eliminata', 'OK', {
+          duration: 5000
+          });
         this.companyChanged.emit('deleted company');
       }
     });
@@ -136,6 +142,9 @@ export class CompactCompanyComponent implements OnInit {
     const updatedCompany = Company.create(result);
     this.companyService.updateCompany(updatedCompany).subscribe({
       next: x => {
+        this.snackBar.open('Struttura modificata', 'OK', {
+          duration: 5000
+          });
         this.companyChanged.emit('updated company');
       }
     });

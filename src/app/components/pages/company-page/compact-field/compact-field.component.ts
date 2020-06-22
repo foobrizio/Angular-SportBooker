@@ -10,6 +10,7 @@ import { FieldDialogComponent } from 'src/app/components/dialog/field-dialog/fie
 import { UserService } from 'src/app/services/user/user.service';
 import { OktaAuthService } from '@okta/okta-angular';
 import { Reservation } from 'src/app/classes/reservation';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-compact-field',
@@ -29,7 +30,7 @@ export class CompactFieldComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog, private resServ: ReservationService, private compServ: CompanyService,
-              private userServ: UserService, private okta: OktaAuthService) { }
+              private userServ: UserService, private okta: OktaAuthService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     switch (this.field.sport){
@@ -52,20 +53,20 @@ export class CompactFieldComponent implements OnInit {
     this.getUser();
     this.resServ.getActiveReservationsForField(this.field.id).subscribe({
       next: x => {
-        reservationListObtained = x;
-        this.openBookingDialog(reservationListObtained);
-      },
-      error: err => {
-        if (err.error.text === 'Field doesn\'t exist!!!'){
-          console.log('Nessun campo associato all\'id');
-        }
-        else if (err.error.text === 'No results!!!'){
+        const message: any = x;
+        if (message.message === 'No results!!!'){
           this.openBookingDialog([]);
         }
-        else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+        else if (message.message === 'Field doesn\'t exist!!!'){
+          console.log('Nessun campo associato all\' id');
         }
+        else{
+          reservationListObtained = x;
+          this.openBookingDialog(reservationListObtained);
+        }
+      },
+      error: err => {
+        console.log(err);
       }
     });
 
@@ -103,11 +104,20 @@ export class CompactFieldComponent implements OnInit {
 
       this.resServ.addReservation(newRes).subscribe({
         next: x => {
-          console.log('Tutto ok');
-          console.log(x);
+          const message: any = x;
+          if (message.message === 'Campo già occupato'){
+            console.log('Campo già occupato');
+            this.snackBar.open('Campo già occupato', 'OK', {
+              duration: 5000
+            });
+          }
+          else{
+            this.snackBar.open('Prenotazione effettuata con successo', 'OK', {
+              duration: 5000
+            });
+          }
         },
         error: err => {
-          console.log('Errore');
           console.log(err);
         }
       });
@@ -154,7 +164,22 @@ export class CompactFieldComponent implements OnInit {
 
     this.compServ.updateField(field).subscribe({
       next: x => {
-        this.changed.emit('Field updated');
+        const message: any = x;
+        if (message.message === 'Company doesn\'t exist!!!'){
+          console.log('La struttura non esiste');
+        }
+        else if (message.message === 'Field doesn\'t exist!!!'){
+          console.log('Il campo non esiste');
+        }
+        else{
+          this.snackBar.open('Campo modificato con successo', 'OK', {
+            duration: 5000
+          });
+          this.changed.emit('Field updated');
+        }
+      },
+      error: err => {
+        console.log(err);
       }
     });
 
@@ -164,37 +189,39 @@ export class CompactFieldComponent implements OnInit {
 
     this.compServ.deleteField(this.field).subscribe({
       next: x => {
-        console.log(x);
-        this.changed.emit('Field deleted');
+        const message: any = x;
+        if (message.message === 'Field doesn\'t exist!!!'){
+          console.log('Il campo non è stato trovato');
+        }
+        else if (message.message === 'Field deleted successfully'){
+          this.snackBar.open('Campo eliminato correttamente', 'OK', {
+            duration: 5000
+          });
+          this.changed.emit('Field deleted');
+        }
       },
       error: err => {
-        if (err.error.text === 'Field doesn\'t exist!!!'){
-          console.log('Nessun campo associato all\'id');
-        }
-        else if (err.error.text === 'No results!!!'){
-          console.log('No results!!!');
-        }
-        else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
-        }
-      },
-      complete: () => console.log('Observer è stato completato')
-
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
     });
+  } // deleteField
 
-
-  }
 
   async getUser(){
 
     const email = (await this.okta.getUser()).preferred_username;
     this.userServ.retrieveUser(email).subscribe({
       next: x => {
-        this.user = User.create(x);
+        const message: any = x;
+        if (message.message === 'User doesn\'t exist!!!'){
+          console.log('L\'utente non esiste');
+        }
+        else{
+          this.user = User.create(x);
+        }
       },
       error: err => {
-        console.log('Observer ha generato l\'errore ');
         console.log(err);
       }
     });
