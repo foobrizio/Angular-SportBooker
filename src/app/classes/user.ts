@@ -1,9 +1,16 @@
 export class User {
 
-  username: string;
+  id: number;
+  email: string;
   firstName: string;
   lastName: string;
-  birthDate: Date;
-  email: string;
-  phone: string;
+
+  static create(x: object): User{
+
+    const user = new User();
+    Object.keys(x).forEach( key => {
+      user[key] = x[key];
+    });
+    return user;
+  }
 }

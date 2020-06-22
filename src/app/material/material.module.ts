@@ -16,20 +16,25 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
 
 const homeComponents = [ MatButtonModule, MatToolbarModule, MatIconModule, MatListModule, MatCardModule, MatDividerModule];
 const searchComponents1 = [ MatInputModule, MatFormFieldModule, MatSelectModule, MatRadioModule, MatCheckboxModule];
-const dateComponents1 = [ MatDatepickerModule, MatNativeDateModule];
-const classComponents = [ MatMenuModule, MatMenuModule];
+const dateComponents = [ MatDatepickerModule, MatNativeDateModule];
+const dialogComponents = [ MatDialogModule, FormsModule, ReactiveFormsModule, MatSnackBarModule];
+const classComponents = [ MatMenuModule, MatPaginatorModule];
 
 @NgModule({
-  imports: [homeComponents, searchComponents1, dateComponents1, classComponents],
-  exports: [homeComponents, searchComponents1, dateComponents1, classComponents]
+  imports: [homeComponents, searchComponents1, dateComponents, dialogComponents, classComponents],
+  exports: [homeComponents, searchComponents1, dateComponents, dialogComponents, classComponents]
 })
 export class MaterialModule { }

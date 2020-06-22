@@ -1,0 +1,148 @@
+<body>
+  <main>
+    <div class="title myRoundBox">
+      <h1 class="mat-display-3"><strong>Profilo personale</strong></h1>
+    </div>
+    <mat-divider></mat-divider>
+
+
+    <section id="info" class="myRoundBox">
+      <h1 class="mat-display-2"><strong>Dati personali</strong></h1>
+      <div class="row">
+        <h1>
+          <mat-icon>account_circle</mat-icon>
+          <strong>Nome: </strong>
+          {{user?.firstName}} {{user?.lastName}}
+        </h1>
+        <h1>
+          <mat-icon>email</mat-icon>
+          <strong>Email:</strong>
+          {{user?.email}}
+        </h1>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h1 class="mat-display-1">
+        <mat-icon>bar_chart</mat-icon>
+        <strong>Statistiche</strong>
+      </h1>
+
+      <div class="row">
+
+        <a (click)="scroll('reservations')">
+          <h1>
+            <mat-icon>calendar_today</mat-icon>
+            <strong>Prenotazioni effettuate:</strong>
+            {{reservationList.length+expiredReservationList.length}}
+          </h1>
+        </a>
+
+        <a (click)="scroll('reviews')">
+          <h1>
+            <mat-icon>create</mat-icon>
+            <strong>Recensioni rilasciate:</strong>
+            {{reviewList.length}}
+          </h1>
+        </a>
+
+      </div>
+      <div class="row" *ngIf="companyList.length>0">
+        <a (click)="scroll('companies')">
+          <h1>
+            <strong>Strutture possedute:</strong>
+            {{companyList.length}}
+          </h1>
+
+        </a>
+
+      </div>
+    </section>
+
+
+    <section id="reservations" class="myRoundBox">
+
+      <h1 class="mat-display-2">
+        <mat-icon>calendar_today</mat-icon>
+        <strong>Le tue prenotazioni</strong>
+      </h1>
+
+      <mat-divider></mat-divider>
+
+      <div class="container">
+
+        <div class="active">
+          <h1><strong>Attive</strong></h1>
+          <div class="list">
+            <div class="element" *ngFor="let res of reservationList; index as i">
+              <h2>{{i+1}})</h2>
+              <app-compact-reservation (undone)="undoReservation($event)" [reservation]=res></app-compact-reservation>
+            </div>
+          </div>
+          <mat-paginator [length]="reservationList?.length" [pageSize]="reservationPageSize" [pageSizeOptions]="reservationPageSizeOptions"></mat-paginator>
+        </div>
+
+        <div class="expired">
+          <h1><strong>Passate</strong></h1>
+          <div class="list">
+            <div class="element" *ngFor="let res of expiredReservationList; index as i">
+              <h2>{{i+1}})</h2>
+              <app-compact-reservation [reservation]=res></app-compact-reservation>
+            </div>
+          </div>
+          <mat-paginator [length]="expiredReservationList?.length" [pageSize]="expiredReservationPageSize" [pageSizeOptions]="expiredReservationPageSizeOptions"> </mat-paginator>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="reviews" class="myRoundBox">
+
+      <h1 class="mat-display-2">
+        <mat-icon>create</mat-icon>
+        <strong>Le tue recensioni</strong>
+      </h1>
+
+      <mat-divider></mat-divider>
+
+      <div class="list">
+        <div class="element" *ngFor="let rw of reviewList">
+          <app-compact-review [review]=rw></app-compact-review>
+        </div>
+      </div>
+
+      <mat-paginator [length]="reviewList?.length" [pageSize]="reviewPageSize" [pageSizeOptions]="reviewPageSizeOptions"></mat-paginator>
+
+    </section>
+
+
+    <section id="companies" class="myRoundBox">
+
+      <h1 class="mat-display-2">
+        <mat-icon>corporate_fare</mat-icon>
+        <strong>Le tue strutture</strong>
+      </h1>
+      <mat-divider></mat-divider>
+
+      <div class="list">
+        <div class="element" *ngFor="let cp of companyList">
+          <app-compact-company (companyChanged)="getCompanies()" [company]=cp></app-compact-company>
+        </div>
+      </div>
+
+      <mat-paginator [length]="companyList?.length" [pageSize]="companyPageSize" [pageSizeOptions]="companyPageSizeOptions"></mat-paginator>
+
+    </section>
+
+    <section id="footer" class="myRoundBox">
+      <p class="mat-headline">I dati che visualizzi vengono forniti dall'account Okta con cui sei loggato su SportBooker.</p>
+      <p class="mat-headline">Le modifiche effettuate sul tuo profilo Okta risulteranno visibili anche su SportBooker.</p>
+      <p class="mat-headline">Non è possibile modificare il tuo profilo direttamente da SportBooker.</p>
+
+    </section>
+
+  </main>
+
+
+</body>

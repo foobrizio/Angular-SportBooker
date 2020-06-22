@@ -1,0 +1,122 @@
+body{
+
+  background-image: url('../../../../assets/pages/other.png');
+  background-size: cover;
+  min-height: 3000px;
+  background-color: lightgoldenrodyellow;
+
+}
+
+main{
+
+  display: flex;
+  flex-direction: column;
+  margin:0px 60px;
+  padding-top: 170px;
+  text-align: center;
+  justify-content: center;
+  align-content: space-around;
+  align-items: center;
+}
+
+.title{
+  display:inline-flex;
+  background-color: rgba(168, 221, 61, 0.8);
+  justify-content: center;
+  align-content: space-around;
+  align-items: center;
+}
+
+#info{
+  margin-top: 80px;
+  width:90%;
+  background-color: rgba(76, 180, 221, 0.8);
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+mat-icon{
+  color:firebrick;
+  padding: 5px;
+}
+
+mat-divider{
+
+  padding:20px;
+}
+
+#reservations{
+  margin-top: 80px;
+  width:90%;
+  background-color: rgba(61, 221, 146, 0.8);
+}
+
+#reviews{
+
+  margin-top:80px;
+  width:90%;
+  background-color: rgba(221, 114, 61, 0.868);
+}
+
+#companies{
+
+  margin-top:80px;
+  width:90%;
+  background-color: rgba(221, 61, 82, 0.8)
+}
+
+
+.container{
+  display:inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  width:100%;
+}
+
+.active, .expired{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width:50%;
+}
+
+.active{
+  border-right:1px solid rgba(0,0,0,0.16);
+}
+
+.myRoundBox{
+  box-shadow: 0px 10px 20px grey;
+  padding: 1.5rem;
+  border-radius: 15px 50px;
+}
+
+
+
+#footer{
+  margin-top: 80px;
+  width:90%;
+  background-color: rgba(221, 221, 61, 0.8)
+}
+
+a{
+  cursor:  pointer;
+}
+
+mat-paginator{
+  background:none;
+  font-weight: bold;
+  font-size: large;
+}
+
+.element{
+  display: flex;
+  flex-direction: row;
+}
+
+app-compact-reservation{
+  width:90%;
+}

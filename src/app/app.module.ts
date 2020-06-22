@@ -22,6 +22,14 @@ import { CompanyPageComponent } from './components/pages/company-page/company-pa
 import { CompactFieldComponent } from './components/pages/company-page/compact-field/compact-field.component';
 import { ReviewComponent } from './components/pages/company-page/review/review.component';
 import { BookingDialogComponent } from './components/dialog/booking-dialog/booking-dialog.component';
+import { UserPageComponent } from './components/pages/user-page/user-page.component';
+import { UserService } from './services/user/user.service';
+import { CompanyDialogComponent } from './components/dialog/company-dialog/company-dialog.component';
+import { FieldDialogComponent } from './components/dialog/field-dialog/field-dialog.component';
+import { CompactCompanyComponent } from './components/pages/user-page/compact-company/compact-company.component';
+import { CompactReviewComponent } from './components/pages/user-page/compact-review/compact-review.component';
+import { CompactReservationComponent } from './components/pages/user-page/compact-reservation/compact-reservation.component';
+import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +47,14 @@ import { BookingDialogComponent } from './components/dialog/booking-dialog/booki
     CompanyPageComponent,
     CompactFieldComponent,
     ReviewComponent,
-    BookingDialogComponent
+    BookingDialogComponent,
+    UserPageComponent,
+    CompanyDialogComponent,
+    FieldDialogComponent,
+    CompactCompanyComponent,
+    CompactReviewComponent,
+    CompactReservationComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +65,7 @@ import { BookingDialogComponent } from './components/dialog/booking-dialog/booki
     MaterialModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

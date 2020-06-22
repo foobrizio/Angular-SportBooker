@@ -26,12 +26,22 @@
       </div>
       <div class="singleInfo">
         <h4>Costo:</h4>
-        <h3>{{field?.costPerHour}}€ all'ora</h3>
+        <h3>{{field?.cost}}€ all'ora</h3>
       </div>
     </div>
 
-    <div class="button-container">
-      <button color="accent" mat-raised-button (click)="openDialog()"><mat-icon>sports_handball</mat-icon>Prenota</button>
+    <div  *ngIf="view==='customer'" class="button-container">
+      <button color="accent" mat-raised-button (click)="onBookClicked()"><mat-icon>sports_handball</mat-icon>Prenota</button>
+    </div>
+    <div  *ngIf="view==='owner'" class="button-container">
+      <button mat-raised-button (click)="onEditClick()" color="accent">
+        <mat-icon>edit</mat-icon>
+        Modifica
+      </button>
+      <button mat-raised-button (click)="onDeleteClick()" color="accent">
+        <mat-icon>delete</mat-icon>
+        Elimina
+      </button>
     </div>
   </div> <!-- info container-->
 

@@ -19,7 +19,13 @@ export class CompanyPageComponent implements OnInit {
   rating: number;
   reviewOrder: string;
   reviewList: Review[];
+  reviewPageSize = 10;
+  reviewPageSizeOptions = [5, 10, 20];
+
   fieldList: Field[];
+  fieldPageSize = 10;
+  fieldPageSizeOptions = [5, 10, 20];
+
   reservationList: Reservation[];
 
   constructor(private reviewService: ReviewService, private companyService: CompanyService, private activatedRoute: ActivatedRoute) { }
@@ -40,18 +46,19 @@ export class CompanyPageComponent implements OnInit {
       const companyId = params.id;
       this.companyService.getCompany(companyId).subscribe({
         next: x => {
-          this.company = Company.create(x);
-          this.opening = String(this.company.openingTime).substring(0, 5);
-          this.closing = String(this.company.closingTime).substring(0, 5);
-        },
-        error: err => {
-          if (err.error.text === 'Company doesn\'t exist!!!'){
+          const message: any = x;
+          if (message.message === 'Company doesn\'t exist!!!'){
             console.log('Nessuna struttura associata all\'id');
           }
           else{
-            console.log('Observer ha generato l\'errore ');
-            console.log(err);
+            this.company = Company.create(x);
+            this.opening = String(this.company.openingTime).substring(0, 5);
+            this.closing = String(this.company.closingTime).substring(0, 5);
           }
+        },
+        error: err => {
+          console.log('Observer ha generato l\'errore ');
+          console.log(err);
         },
         complete: () => console.log('Observer è stato completato')
       });
@@ -61,12 +68,22 @@ export class CompanyPageComponent implements OnInit {
 
   } // getParams
 
+
+  getFragment(): void{
+    this.activatedRoute.fragment.subscribe( fragment => {
+
+      this.scroll(fragment);
+    });
+  }
+
+
   getCompanyData(companyId: number){
 
     // prendiamo il rating
     this.reviewService.getRating(companyId).subscribe({
       next: x => {
         this.rating = x;
+        this.getFragment();
       },
       error: err => {
         if (err.error.text === 'No results!!!'){
@@ -83,67 +100,65 @@ export class CompanyPageComponent implements OnInit {
     // ora prendiamo la lista di recensioni
     this.companyService.getReviews(companyId).subscribe({
       next: x => {
-        const list = [];
-        x.forEach( review => {
-          list.push(Review.create(review));
-        });
-        this.reviewList = list;
-        /*this.reviewList = x; */
-      },
-      error: err => {
-        if (err.error.text === 'No results!!!' || err.error.text === 'Company doesn\'t exist !!!'){
+        const message: any = x;
+        if (message.message === 'No results!!!'){
           this.reviewList = [];
         }
         else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+          const list = [];
+          x.forEach( review => {
+            list.push(Review.create(review));
+          });
+          this.reviewList = list;
         }
       },
-      complete: () => console.log('Observer è stato completato')
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
     });
 
     // infine prendiamo la lista di campi
     this.companyService.getFields(companyId).subscribe({
       next: x => {
-        this.fieldList = x;
-      },
-      error: err => {
-        if (err.error.text === 'No results!!!' || err.error.text === 'Company doesn\'t exist!!!'){
+        const message: any = x;
+        if (message.message === 'No results!!!' || message.message === 'Company doesn\'t exist!!!'){
           this.fieldList = [];
         }
         else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+          this.fieldList = x;
         }
       },
-      complete: () => console.log('Observer è stato completato')
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
     });
 
     this.companyService.getOldReservations(companyId).subscribe({
       next: x => {
-        this.reservationList = x;
-      },
-      error: err => {
-        if (err.error.text === 'No results!!!' || err.error.text === 'Company doesn\'t exist!!!'){
+        const message: any = x;
+        if (message.message === 'No results!!!' || message.message === 'Company doesn\'t exist!!!'){
           this.reservationList = [];
         }
         else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
+          this.reservationList = x;
         }
       },
-      complete: () => console.log('Observer è stato completato')
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
 
     });
 
   }
 
 
-  scroll(target): void{
+  scroll(target: string): void{
 
-    console.log('scrolliamo');
     const where = document.getElementById(target);
-    where.scrollIntoView({behavior: 'smooth'});
+    where?.scrollIntoView({behavior: 'smooth'});
   }
 
   toggleReviewOrder(value: string): void{

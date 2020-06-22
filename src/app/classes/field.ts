@@ -8,5 +8,18 @@ export class Field {
   length: number;
   width: number;
   ownerCompany: Company;
-  costPerHour: number;
+  cost: number;
+
+  /* Metodo factory che mi crea un Field */
+  static create(x: object): Field{
+
+    const f = new Field();
+    Object.keys(x).forEach( key => {
+      f[key] = x[key];
+    });
+    return f;
+  }
 }
+
+
+

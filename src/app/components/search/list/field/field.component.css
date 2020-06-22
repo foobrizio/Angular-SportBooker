@@ -74,13 +74,15 @@ a:hover{
   font-weight: bold;
 }
 
-button{
+.button-container button{
 
   margin-bottom: 20px;
   border-radius: 4.5px 15px;
+  color:firebrick;
 }
 
-mat-icon{
 
-  color: firebrick;
+.button-container button:hover{
+  background-color: firebrick;
+  color: gold;
 }

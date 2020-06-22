@@ -19,20 +19,11 @@ export class CompanyComponent implements OnInit {
 
     this.reviewService.getRating(this.company.id).subscribe({
       next: x => {
-        console.log('Abbiamo ottenuto il rating ' + x);
         this.rating = x;
       },
       error: err => {
-        if (err.error.text === 'No results!!!'){
-          this.rating = 0.0;
-        }
-        else{
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
-        }
-      },
-      complete: () => console.log('Observer è stato completato')
-
+        console.log(err);
+      }
     });
   }
 

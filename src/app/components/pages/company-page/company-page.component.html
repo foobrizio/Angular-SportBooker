@@ -137,6 +137,8 @@
         </div>
         <mat-divider></mat-divider>
       </div>
+      <mat-paginator [length]="fieldList?.length" [pageSize]="fieldPageSize" [pageSizeOptions]="fieldPageSizeOptions"></mat-paginator>
+
     </section>
 
 
@@ -155,6 +157,8 @@
         <app-review [review]=review></app-review>
         <mat-divider></mat-divider>
       </div>
+      <mat-paginator [length]="reviewList?.length" [pageSize]="reviewPageSize" [pageSizeOptions]="reviewPageSizeOptions"></mat-paginator>
+
     </section>
   </div>
 

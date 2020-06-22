@@ -1,0 +1,78 @@
+<body>
+  <h1 *ngIf="mode === 'create'" mat-dialog-title class="title">Creazione nuovo campo</h1>
+  <h1 *ngIf="mode === 'edit'" mat-dialog-title class="title">Modifica campo</h1>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content class="mat-typography container">
+
+    <form [formGroup]="myForm" class="forms">
+
+      <div class="company-row">
+        <mat-form-field class="standard" *ngIf="companyList?.length>0">
+          <mat-label>Struttura</mat-label>
+          <mat-select [(ngModel)]="selectedCompany" required [disabled]="from==='inside'" formControlName="company" placeholder="Struttura">
+            <mat-option  *ngFor="let company of companyList;index as i" [value]="i">
+              {{company.name}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Scegli la struttura in cui vuoi inserire il nuovo campo</mat-hint>
+          <mat-icon matSuffix>corporate_fare</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="row">
+
+        <mat-form-field class="standard">
+          <mat-label>Sport</mat-label>
+          <mat-select [(ngModel)]="selectedSport" required formControlName="sport" placeholder="Sport">
+            <mat-option *ngFor="let sport of sportList" [value]="sport">{{sport}}</mat-option>
+          </mat-select>
+          <mat-hint>Lo sport praticato nel campo</mat-hint>
+          <mat-icon matSuffix>sports</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="standard">
+          <mat-label>Terreno</mat-label>
+          <input [(ngModel)]="selectedTerrain" matInput formControlName="terrain">
+          <mat-hint>Ex: sintetico, asfalto, parquet...</mat-hint>
+          <mat-icon matSuffix>grain</mat-icon>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+
+        <mat-form-field class="short">
+          <mat-label>Lunghezza</mat-label>
+          <input [(ngModel)]="selectedLength" matInput formControlName="length" placeholder="Lunghezza">
+          <mat-hint>Lato lungo del campo</mat-hint>
+          <mat-icon matSuffix>zoom_out_map</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="short">
+          <mat-label>Larghezza</mat-label>
+          <input [(ngModel)]="selectedWidth"matInput formControlName="width">
+          <mat-icon matSuffix>zoom_out_map</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="short">
+          <mat-label>Costo per ora</mat-label>
+          <input [(ngModel)]="selectedCost" matInput required formControlName="cost">
+          <mat-icon matSuffix>euro_symbol</mat-icon>
+        </mat-form-field>
+
+      </div>
+    </form>
+  </div> <!-- mat dialog content-->
+  <div mat-dialog-actions class="buttonContainer">
+    <button mat-button (click)="onAnnullaClick()">
+      <mat-icon>thumb_down</mat-icon>
+      Annulla
+    </button>
+    <button mat-button [disabled]="myForm?.invalid" [mat-dialog-close]="created" (click)="onCreaClick()">
+      <mat-icon>thumb_up</mat-icon>
+      <span *ngIf="mode === 'create'"> Crea Campo</span>
+      <span *ngIf="mode === 'edit'"> Conferma</span>
+    </button>
+  </div>
+
+
+</body>

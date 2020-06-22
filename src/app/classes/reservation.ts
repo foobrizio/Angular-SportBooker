@@ -1,11 +1,10 @@
 import { Field } from './field';
-import { logging } from 'protractor';
 import { User } from './user';
 
 export class Reservation {
 
 
-  id:number;
+  id: number;
   field: Field;
   bookingTime: number;
   booker: User;
@@ -15,7 +14,7 @@ export class Reservation {
   getBookingTimeToString(): string{
 
 
-    const date= new Date(this.bookingTime);
+    const date = new Date(this.bookingTime);
     return date.toString();
   }
 }

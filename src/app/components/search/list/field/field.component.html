@@ -10,7 +10,7 @@
 
     <div class="info-inner-container">
       <div class="singleInfo">
-        <h1 class="mat-display-1">{{field.costPerHour}}€ all'ora</h1>
+        <h1 class="mat-display-1">{{field.cost}}€ all'ora</h1>
       </div>
       <div class="singleInfo">
         <h3><strong>Gestito da: </strong></h3>
@@ -42,7 +42,7 @@
     </div> <!-- inner container -->
 
     <div class="button-container">
-      <button color="accent" mat-raised-button (click)="openDialog()"><mat-icon>sports_handball</mat-icon>Prenota</button>
+      <button color="accent" mat-raised-button (click)="onBookClicked()"><mat-icon>sports_handball</mat-icon>Prenota</button>
     </div>
 
   </div> <!-- info container-->

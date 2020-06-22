@@ -1,0 +1,98 @@
+<body>
+  <main>
+    <div class="column">
+      <h1 class="mat-display-1">{{company.name}}</h1>
+    </div>
+
+    <div class="column">
+
+      <div class="element">
+
+        <h2 class="elemDescription">
+          <mat-icon>location_on</mat-icon>
+          <strong>Indirizzo: </strong>
+        </h2>
+        <h3>{{company.city}}, {{company.address}}</h3>
+      </div>
+
+      <div class="element">
+
+        <h2 class="elemDescription">
+          <mat-icon>email</mat-icon>
+          <strong>Email: </strong>
+        </h2>
+        <h3>{{company.email}}</h3>
+      </div>
+
+      <div class="element">
+
+        <h2 class="elemDescription">
+          <mat-icon>phone</mat-icon>
+          <strong>Telefono: </strong>
+        </h2>
+        <h3>{{company.phone}}</h3>
+      </div>
+    </div>
+
+    <div class="column">
+
+      <div class="element">
+
+        <h2 class="elemDescription">
+          <mat-icon>wb_sunny</mat-icon>
+          <strong>Orario apertura: </strong>
+        </h2>
+        <h3>{{company.openingTime}}</h3>
+      </div>
+
+      <div class="element">
+
+        <h2 class="elemDescription">
+          <mat-icon>nights_stay</mat-icon>
+          <strong>Orario chiusura: </strong>
+        </h2>
+        <h3>{{company.closingTime}}</h3>
+      </div>
+
+      <div class="element">
+
+        <h2 class="elemDescription">
+          <mat-icon>phone</mat-icon>
+          <strong>Chiuso di: </strong>
+        </h2>
+        <h3>{{company.freeDayToString()}}</h3>
+      </div>
+
+    </div>
+
+    <div class="column">
+
+      <button mat-raised-button (click)="onEditClick()" color="accent">
+        <mat-icon>edit</mat-icon>
+        Modifica
+      </button>
+      <button mat-raised-button (click)="onDeleteClick()" color="accent">
+        <mat-icon>delete</mat-icon>
+        Elimina
+      </button>
+      <button mat-raised-button (click)="onAddFieldClick()" color="accent">
+        <mat-icon>add</mat-icon>
+        Nuovo campo
+      </button>
+
+    </div>
+
+  </main>
+
+  <mat-divider></mat-divider>
+
+  <section id="fields">
+    <h2 *ngIf="fieldList?.length>0">Campi associati:</h2>
+    <div class="fieldElement" *ngFor="let fld of fieldList; index as i">
+      <h1>{{i+1}})</h1>
+      <app-compact-field (changed)="retrieveFields()" [field]=fld view="owner"></app-compact-field>
+    </div>
+
+
+  </section>
+</body>

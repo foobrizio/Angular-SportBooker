@@ -52,13 +52,18 @@ img{
 
   display:flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .button-container button{
 
   border-radius: 4.5px 15px;
   color: firebrick;
+}
+
+.button-container button:hover{
+  background-color: firebrick;
+  color: gold;
 }
 
 h4,h3{

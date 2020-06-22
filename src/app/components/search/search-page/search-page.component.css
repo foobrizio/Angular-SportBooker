@@ -37,14 +37,14 @@ mat-form-field{
   width: 80%;
   padding: 20px 0px;
 }
+mat-form-field mat-icon{
+  color:firebrick;
+}
 
 mat-radio-button{
   padding:20px 20px;
 }
 
-mat-icon{
-  color: firebrick;
-}
 
 ::ng-deep .mat-datepicker-toggle{
   color: firebrick;
@@ -87,6 +87,7 @@ mat-icon{
 
 }
 .inner-rating-label mat-icon{
+  color:firebrick;
   float:right;
   padding-bottom:5px;
 }
@@ -108,18 +109,27 @@ mat-option{
 }
 
 
-.confirm{
+.button-container{
   padding:20px;
   display: block;
 }
 
-.confirm button{
+.button-container button{
 
   float:right;
   border-radius: 4.5px 15px;
+  color: firebrick;
+  margin-bottom: 20px;
 }
 
+
+.button-container button:hover{
+  background-color: firebrick;
+  color: gold;
+}
 app-field-list, app-company-list{
 
   width:50%;
 }
+
+

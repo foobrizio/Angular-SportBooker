@@ -1,0 +1,130 @@
+<body>
+  <h1 mat-dialog-title class="title">Creazione nuova struttura</h1>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content class="mat-typography container">
+
+    <form [formGroup]="myForm" class="forms">
+
+      <div class="row">
+
+        <mat-form-field class="standard" id="nome">
+          <mat-label>Nome</mat-label>
+          <input matInput required placeholder="Nome" formControlName="name">
+          <mat-hint>Il nome della tua struttura</mat-hint>
+          <mat-icon matSuffix>account_box</mat-icon>
+          <mat-error *ngIf="myForm.get('name').invalid || myForm.get('name').pristine">
+            Inserire un nome
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="long">
+          <mat-label>Descrizione</mat-label>
+          <input matInput #descriptionInput formControlName="description" maxlength="256" placeholder="Ex. Questa struttura è...">
+          <mat-hint align="end">{{descriptionInput.value.length}} / 256</mat-hint>
+          <mat-icon matSuffix>create</mat-icon>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+
+        <mat-form-field class="standard" id="città">
+          <mat-label>Città</mat-label>
+          <input matInput #cityInput required maxlength="30" formControlName="city">
+          <mat-hint align="end">{{cityInput.value.length}} / 30</mat-hint>
+          <mat-icon matSuffix>location_city</mat-icon>
+          <mat-error *ngIf="myForm.get('city').invalid || myForm.get('city').pristine">
+            Inserire una città!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field  class="long" id="indirizzo">
+          <mat-label>Indirizzo</mat-label>
+          <input matInput formControlName="address" #addressInput required maxlength="60" placeholder="Via, Piazza" >
+          <mat-hint align="end">{{addressInput.value.length}} / 60</mat-hint>
+          <mat-icon matSuffix>add_road</mat-icon>
+          <mat-error *ngIf="myForm.get('address').invalid || myForm.get('address').pristine">
+            Inserire un indirizzo!
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+
+        <mat-form-field appearance="legacy" class="standard" id="telefono">
+          <mat-label>Telefono</mat-label>
+          <input matInput formControlName="phone" required minLength="9" maxlength="12">
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="myForm.get('phone').invalid || myForm.get('phone').pristine">
+            Inserire un numero di telefono valido!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="longmail">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email"
+                 placeholder="Ex. user@provider.com">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="myForm.get('email').invalid">
+            Non sembra un indirizzo email valido..
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+
+        <mat-form-field class="standard" >
+          <mat-label>Giorno libero</mat-label>
+          <mat-select formControlName="freeDay">
+          <mat-option *ngFor="let day of daysOfWeek" [value]="daysOfWeek.indexOf(day)">
+            {{day}}
+          </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>today</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="standard" >
+          <mat-label>Orario Apertura</mat-label>
+          <mat-select [(ngModel)]="openingIndex" required (selectionChange)="updateHours()" formControlName="openingTime">
+          <mat-option *ngFor="let hour of availableHours; index as i" [value]="i">
+            {{hour}}:00
+          </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>wb_sunny</mat-icon>
+          <mat-error *ngIf="myForm.get('openingTime').invalid || myForm.get('openingTime').pristine">
+            Inserire un orario di apertura!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" class="standard" >
+          <mat-label>Orario Chiusura</mat-label>
+          <mat-select required formControlName="closingTime">
+          <mat-option *ngFor="let hour2 of availableClosingHours;" [value]="hour2" >
+            {{hour2}}:00
+          </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>nights_stay</mat-icon>
+          <mat-error *ngIf="myForm.get('closingTime').invalid || myForm.get('closingTime').pristine">
+            Inserire un orario di chiusura!
+          </mat-error>
+        </mat-form-field>
+
+      </div> <!-- rows -->
+    </form>
+  </div> <!-- mat dialog content-->
+
+
+  <div mat-dialog-actions class="buttonContainer">
+    <button mat-button (click)="onAnnullaClick()">
+      <mat-icon>thumb_down</mat-icon>
+      Annulla
+    </button>
+    <button mat-button [disabled]="myForm.invalid" (click)="onCreaClick()" [mat-dialog-close]="created">
+      <mat-icon>thumb_up</mat-icon>
+      Crea Struttura
+    </button>
+  </div>
+
+</body>
