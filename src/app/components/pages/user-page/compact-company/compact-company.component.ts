@@ -36,7 +36,7 @@ export class CompactCompanyComponent implements OnInit {
     const dialogRef = this.dialog.open(CompanyDialogComponent, {
       height: '450px',
       width: '800px',
-      data: { company: this.company,  mode: 'create'}
+      data: { company: this.company,  mode: 'edit'}
     });
 
     dialogRef.afterClosed().subscribe( result => {
@@ -103,12 +103,21 @@ export class CompactCompanyComponent implements OnInit {
 
     this.companyService.getFields(this.company.id).subscribe({
       next: x => {
-        const list: Field[] = [];
-        x.forEach( field => {
-          const c = Field.create(field);
-          list.push(c);
-        });
-        this.fieldList = list;
+        const message: any = x;
+        if (message.message === 'No results!!!'){
+          this.fieldList = [];
+          console.log('Nessun campo trovato');
+        }
+        else{
+          console.log('Campi trovati');
+          const list: Field[] = [];
+          x.forEach( field => {
+            const c = Field.create(field);
+            list.push(c);
+          });
+          this.fieldList = list;
+        }
+
       },
       error: err => {
         if (err.error === 'User doesn\'t exists!!!'){
@@ -140,6 +149,9 @@ export class CompactCompanyComponent implements OnInit {
   async editCompany(result: object){
 
     const updatedCompany = Company.create(result);
+    updatedCompany.id = this.company.id;
+    updatedCompany.owner = this.company.owner;
+    console.log(this.company.owner);
     this.companyService.updateCompany(updatedCompany).subscribe({
       next: x => {
         this.snackBar.open('Struttura modificata', 'OK', {

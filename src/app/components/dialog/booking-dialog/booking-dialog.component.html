@@ -10,7 +10,8 @@
 
       <mat-form-field id="dateField">
         <mat-label>Scegli il giorno</mat-label>
-        <input [(ngModel)]="selectedDate" (dateChange)="setAvailableHours()" matInput [min]="minDate" [max]="getMaxDate()" [matDatepicker]="picker">
+        <input [(ngModel)]="selectedDate" (dateChange)="deepControl()" matInput [min]="minDate" [max]="getMaxDate()"
+        [matDatepickerFilter]="myFilter" [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -40,6 +41,11 @@
 
 
   </div>
+
+  <div id="alert">
+    <span>Campo già occupato</span>
+  </div>
+
   <div mat-dialog-actions class="button-container">
     <button mat-raised-button color="accent" (click)="onNoClick()">
       <mat-icon>thumb_down</mat-icon>
@@ -50,4 +56,5 @@
       Conferma
     </button>
   </div>
+
 </body>

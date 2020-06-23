@@ -13,6 +13,7 @@ export interface DatiBooking{
 }
 
 
+
 @Component({
   selector: 'app-booking-dialog',
   templateUrl: './booking-dialog.component.html',
@@ -30,6 +31,14 @@ export class BookingDialogComponent implements OnInit {
   minDate: Date;
 
   amountAvailable: boolean;
+  // isClosed: boolean;
+
+  myFilter = (date: Date): boolean => {
+    const day = date.getDay();
+    // Evitiamo che il giorno libero della struttura sia selezionabile
+    // this.isClosed = day === this.data.field.ownerCompany.freeDay;
+    return day !== this.data.field.ownerCompany.freeDay;
+  }
 
 
   constructor(
@@ -39,12 +48,20 @@ export class BookingDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.selectedDate = new Date();
+    if (new Date().getDay() === this.data.field.ownerCompany.freeDay){
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      this.minDate = tomorrow;
+    }
+    else{
+      this.minDate = new Date();
+    }
     this.setAvailableHours();
     this.selectedAmount = 1;
     this.hoursInARow = [1, 2, 3];
-    this.minDate = new Date();
     this.amountAvailable = true;
+    // this.isClosed = false;
+    this.selectedDate = this.minDate;
   }
 
 
@@ -55,8 +72,13 @@ export class BookingDialogComponent implements OnInit {
   onOkClick(): void{
 
     if (this.checkIfClosable()){
-      this.makeReservation();
-      this.dialogRef.close(this.result);
+      if (!this.checkAvailability()){
+        document.getElementById('alert').style.display = 'block';
+      }
+      else{
+        this.makeReservation();
+        this.dialogRef.close(this.result);
+      }
     }else{
 
     }
@@ -95,6 +117,20 @@ export class BookingDialogComponent implements OnInit {
     this.result = {reservation: res,  amount: this.selectedAmount};
   }
 
+
+  /* Metodo che si occupa di verificare se la data scelta è ammissibile, e setta di conseguenza il range di ore */
+  deepControl(): void{
+
+
+    if (new Date().getDay() === this.data.field.ownerCompany.freeDay){
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      this.minDate = tomorrow;
+    }
+    this.setAvailableHours();
+
+
+  }
   setAvailableHours(): void{
 
     const rightNow = new Date();
@@ -149,7 +185,7 @@ export class BookingDialogComponent implements OnInit {
       const reserveDay = reserveDate.getDate();
       const reserveMonth = reserveDate.getMonth();
       const reserveHour = reserveDate.getHours();
-      if (reserveDay === this.selectedDate.getDate() && reserveMonth === this.selectedDate.getMonth()){
+      if (reserveDay === this.selectedDate?.getDate() && reserveMonth === this.selectedDate?.getMonth()){
 
         /* Abbiamo una prenotazione nella giornata odierna */
         if (reserveHour === hour){

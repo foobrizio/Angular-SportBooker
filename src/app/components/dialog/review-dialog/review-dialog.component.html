@@ -1,0 +1,48 @@
+<body>
+
+  <div mat-dialog-title class="title">
+    <h1>Scrivi una recensione</h1>
+  </div>
+
+  <div mat-dialog-content>
+
+    <div class="stars">
+      <div class="star" (click)="setStar(1)">
+        <mat-icon id="star1">star_rate</mat-icon>
+      </div>
+      <div class="star" (click)="setStar(2)">
+        <mat-icon id="star2">star_rate</mat-icon>
+      </div>
+      <div class="star" (click)="setStar(3)">
+        <mat-icon id="star3">star_rate</mat-icon>
+      </div>
+      <div class="star" (click)="setStar(4)">
+        <mat-icon id="star4">star_rate</mat-icon>
+      </div>
+      <div class="star" (click)="setStar(5)">
+        <mat-icon id="star5">star_rate</mat-icon>
+      </div>
+
+    </div>
+
+    <form [formGroup]="myForm">
+      <mat-form-field>
+        <textarea #reviewInput matInput maxLength="1024" formControlName="review"></textarea>
+        <mat-hint align="end">{{reviewInput.value.length}} / 1024</mat-hint>
+        <mat-hint>Descrivi la tua esperienza con la nostra struttura</mat-hint>
+      </mat-form-field>
+    </form>
+
+  </div>
+
+  <div mat-dialog-actions class="button-container">
+    <button mat-raised-button color="accent" (click)="onNoClick()">
+      <mat-icon>thumb_down</mat-icon>
+      Annulla
+    </button>
+    <button mat-raised-button color="accent" [disabled]="myForm.invalid" (click)="onYesClick()">
+      <mat-icon>thumb_up</mat-icon>
+      Conferma
+    </button>
+  </div>
+</body>

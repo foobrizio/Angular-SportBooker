@@ -8,16 +8,16 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
-import { StatisticsComponent } from 'src/app/components/home/statistics/statistics.component';
-import { SportComponent } from './components/home/sport/sport.component';
-import { SearchPageComponent } from './components/search/search-page/search-page.component';
-import { HomePageComponent } from './components/home/home-page/home-page.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { StatisticsComponent } from 'src/app/components/pages/home/statistics/statistics.component';
+import { SportComponent } from './components/pages/home/sport/sport.component';
+import { SearchPageComponent } from './components/pages/search/search-page/search-page.component';
+import { HomePageComponent } from './components/pages/home/home-page/home-page.component';
+import { PageNotFoundComponent } from './components/pages/page-not-found/page-not-found.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { FieldListComponent } from './components/search/list/field-list/field-list.component';
-import { CompanyListComponent } from './components/search/list/company-list/company-list.component';
-import { FieldComponent } from './components/search/list/field/field.component';
-import { CompanyComponent } from './components/search/list/company/company.component';
+import { FieldListComponent } from './components/pages/search/list/field-list/field-list.component';
+import { CompanyListComponent } from './components/pages/search/list/company-list/company-list.component';
+import { FieldComponent } from './components/pages/search/list/field/field.component';
+import { CompanyComponent } from './components/pages/search/list/company/company.component';
 import { CompanyPageComponent } from './components/pages/company-page/company-page.component';
 import { CompactFieldComponent } from './components/pages/company-page/compact-field/compact-field.component';
 import { ReviewComponent } from './components/pages/company-page/review/review.component';
@@ -30,6 +30,7 @@ import { CompactCompanyComponent } from './components/pages/user-page/compact-co
 import { CompactReviewComponent } from './components/pages/user-page/compact-review/compact-review.component';
 import { CompactReservationComponent } from './components/pages/user-page/compact-reservation/compact-reservation.component';
 import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
+import { ReviewDialogComponent } from './components/dialog/review-dialog/review-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confi
     CompactCompanyComponent,
     CompactReviewComponent,
     CompactReservationComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ReviewDialogComponent
   ],
   imports: [
     BrowserModule,

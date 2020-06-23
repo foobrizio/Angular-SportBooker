@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { SearchPageComponent } from './components/search/search-page/search-page.component';
-import { HomePageComponent} from './components/home/home-page/home-page.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { SearchPageComponent } from './components/pages/search/search-page/search-page.component';
+import { HomePageComponent} from './components/pages/home/home-page/home-page.component';
+import { PageNotFoundComponent } from './components/pages/page-not-found/page-not-found.component';
 import { CompanyPageComponent } from './components/pages/company-page/company-page.component';
 
 import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';

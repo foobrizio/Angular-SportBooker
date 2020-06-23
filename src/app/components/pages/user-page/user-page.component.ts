@@ -58,8 +58,7 @@ export class UserPageComponent implements OnInit {
           console.log('Observer ha generato l\'errore ');
           console.log(err);
         }
-      },
-      complete: () => { console.log('Completed'); }
+      }
     });
 
   }
@@ -74,7 +73,6 @@ export class UserPageComponent implements OnInit {
     this.activatedRoute.fragment.subscribe( fragment => {
 
       if (fragment){
-        console.log('fragment');
         this.scroll(fragment);
       }
       else {
@@ -186,8 +184,6 @@ export class UserPageComponent implements OnInit {
       }
     });
   }
-
-
 
   scroll(target: string): void{
 

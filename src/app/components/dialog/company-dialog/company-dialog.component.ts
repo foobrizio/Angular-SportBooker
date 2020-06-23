@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Company } from 'src/app/classes/company';
 import { Validators,  FormBuilder } from '@angular/forms';
 import { Time } from '@angular/common';
@@ -33,12 +33,41 @@ export class CompanyDialogComponent implements OnInit {
   availableHours = ['08' , '09' , '10' , '11' , '12' , '13' , '14' , '15' , '16' , '17' , '18' , '19' , '20' , '21' , '22' , '23'];
   availableClosingHours = ['08' , '09' , '10' , '11' , '12' , '13' , '14' , '15' , '16' , '17' , '18' , '19' , '20' , '21' , '22' , '23'];
 
+  mode: string;
 
-  constructor(public dialogRef: MatDialogRef<CompanyDialogComponent>, private fb: FormBuilder) { }
+  constructor(public dialogRef: MatDialogRef<CompanyDialogComponent>, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data) {
+
+    this.mode = data.mode;
+
+
+  }
 
   ngOnInit(): void {
 
     this.created = new Company();
+    if (this.mode === 'edit'){
+      this.setCompany(this.data.company);
+    }
+  }
+
+  setCompany(company: Company){
+
+    this.openingIndex = this.availableHours.indexOf(String(company.openingTime).substring(0, 2));
+    this.myForm.setValue({
+
+      name: company.name,
+      description: company.description,
+      email: company.email,
+      phone: company.phone,
+      address: company.address,
+      city: company.city,
+      freeDay: company.freeDay,
+      openingTime: this.availableHours.indexOf(String(company.openingTime).substring(0, 2)),
+      closingTime: String(company.closingTime).substring(0, 2)
+    });
+
+
+
   }
 
 

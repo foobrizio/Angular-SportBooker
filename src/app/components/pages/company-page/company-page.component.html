@@ -144,6 +144,10 @@
 
     <section id="reviewSection">
       <h1 class="title mat-display-1">Recensioni</h1>
+      <button *ngIf="neverLeft" mat-raised-button color="accent" (click)="onReviewButtonClick()">
+        <mat-icon>rate_review</mat-icon>
+        Lascia una recensione
+      </button>
       <div class="reviewButton">
         <h4>Mostra:</h4>
         <mat-select [(value)]="reviewOrder">

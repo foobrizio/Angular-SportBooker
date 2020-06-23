@@ -1,5 +1,8 @@
 body{
-  background-image: url('../../../../img/search.png');
+
+  display: table;
+  border-collapse: collapse;
+  background-image: url('../../../../../img/search.png');
   background-color: lightgoldenrodyellow;
   background-position-y: -150px;
   background-size: cover;

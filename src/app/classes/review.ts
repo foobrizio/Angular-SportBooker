@@ -8,7 +8,7 @@ export class Review {
   reviewer: User;
   publishTime: Date;
   comment: string;
-  vote: 5;
+  vote: number;
 
   constructor(){ }
 

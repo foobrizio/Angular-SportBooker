@@ -84,7 +84,7 @@
 
   </main>
 
-  <mat-divider></mat-divider>
+  <mat-divider *ngIf="fieldList?.length>0"></mat-divider>
 
   <section id="fields">
     <h2 *ngIf="fieldList?.length>0">Campi associati:</h2>

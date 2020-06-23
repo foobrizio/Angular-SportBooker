@@ -46,3 +46,8 @@ mat-form-field mat-icon{
   color: gold;
 }
 
+#alert{
+  color: firebrick;
+  font-weight: bold;
+  display:none;
+}

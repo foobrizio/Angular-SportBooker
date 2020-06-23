@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FieldComponent } from 'src/app/components/search/list/field/field.component';
 import { Field } from 'src/app/classes/field';
 import { Company } from 'src/app/classes/company';
 

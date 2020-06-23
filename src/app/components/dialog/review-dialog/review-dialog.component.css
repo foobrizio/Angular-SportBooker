@@ -1,0 +1,54 @@
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: tan;
+}
+
+.title{
+  text-align: center;
+  font-weight: bold;
+  color: firebrick;
+}
+
+mat-form-field{
+  padding:10px;
+  height: 50%;
+  width:95%;
+}
+textarea{
+  resize: none;
+  padding:5px;
+  height: 100%;
+}
+
+.stars{
+  padding-left: 5px;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.star{
+  cursor: pointer;
+  color: gold;
+}
+
+.button-container{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.button-container button{
+
+  border-radius: 4px 15px;
+  color:firebrick;
+}
+
+.button-container button:hover{
+
+  color:gold;
+  background-color:firebrick;
+}

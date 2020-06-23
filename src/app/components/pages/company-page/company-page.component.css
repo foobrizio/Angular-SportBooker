@@ -140,6 +140,18 @@ main{
   margin-top: 40px;
 }
 
+#reviewSection button{
+
+  margin: 20px;
+  border-radius: 4px 15px;
+  color: firebrick;
+}
+
+#reviewSection button:hover{
+  color: gold;
+  background-color: firebrick;
+}
+
 .reviewButton{
   margin-left: 20px;
   display: flex;

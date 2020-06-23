@@ -1,5 +1,6 @@
 <body>
-  <h1 mat-dialog-title class="title">Creazione nuova struttura</h1>
+  <h1 *ngIf="mode === 'create'" mat-dialog-title class="title">Creazione nuova struttura</h1>
+  <h1 *ngIf="mode === 'edit' "mat-dialog-title class="title">Modifica struttura</h1>
   <mat-divider></mat-divider>
   <div mat-dialog-content class="mat-typography container">
 
@@ -123,7 +124,8 @@
     </button>
     <button mat-button [disabled]="myForm.invalid" (click)="onCreaClick()" [mat-dialog-close]="created">
       <mat-icon>thumb_up</mat-icon>
-      Crea Struttura
+      <span *ngIf="mode==='edit'">Aggiorna</span>
+      <span *ngIf="mode==='create'">Crea Struttura</span>
     </button>
   </div>
 

@@ -1,8 +1,10 @@
 body{
 
+  display: table;
+  border-collapse: collapse;
   background-image: url('../../../../assets/pages/other.png');
-  background-size: cover;
-  min-height: 3000px;
+  background-size: contain;
+  height: 100%;
   background-color: lightgoldenrodyellow;
 
 }
@@ -13,6 +15,7 @@ main{
   flex-direction: column;
   margin:0px 60px;
   padding-top: 170px;
+  padding-bottom: 80px;
   text-align: center;
   justify-content: center;
   align-content: space-around;
@@ -98,6 +101,7 @@ mat-divider{
 
 #footer{
   margin-top: 80px;
+  margin-bottom: 40 px;
   width:90%;
   background-color: rgba(221, 221, 61, 0.8)
 }
@@ -111,10 +115,16 @@ mat-paginator{
   font-weight: bold;
   font-size: large;
 }
+.list{
 
+  display: inline-flex;
+  flex-direction: column;
+}
 .element{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  margin-top: 20px;
+  width:100%;
 }
 
 app-compact-reservation{

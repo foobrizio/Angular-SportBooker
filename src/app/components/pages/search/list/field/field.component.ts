@@ -85,8 +85,8 @@ export class FieldComponent implements OnInit {
 
   async deployReservation(res: Reservation, amount: number){
 
-    const bookingDate = new Date(res.bookingTime);
     for (let i = 0; i < amount; i++){
+      const bookingDate = new Date(res.bookingTime);
       bookingDate.setHours(bookingDate.getHours() + i);
       const newRes = new Reservation();
       newRes.booker = this.user;
@@ -109,7 +109,15 @@ export class FieldComponent implements OnInit {
           }
         },
         error: err => {
-          console.log(err);
+          if (err.error.message === 'Campo già occupato'){
+            console.log('Campo già occupato');
+            this.snackBar.open('Campo già occupato', 'OK', {
+              duration: 5000
+            });
+          }
+          else{
+            console.log(err);
+          }
         }
       });
 
