@@ -7,7 +7,7 @@
     <section class="welcome myRoundBox">
       <h1><strong>Benvenuti nel nuovo portale per la prenotazione di campetti sportivi</strong></h1>
       <a routerLink="/search" [queryParams]="{lookingFor: 'fields',sport: 'Calcetto', rating:'0.0'}">
-        <h1><strong>Vai alla ricerca</strong></h1>
+        <h1 *ngIf="isAuthenticated"><strong>Vai alla ricerca</strong></h1>
       </a>
 
     </section>
@@ -20,7 +20,7 @@
         <mat-list>
           <mat-list-item class="centered">
             <mat-icon matListIcon>person</mat-icon>
-            <h2>Crea il tuo account</h2>
+            <h2>Entra tramite il tuo account Okta</h2>
           </mat-list-item>
           <mat-list-item>
             <mat-icon matListIcon>search</mat-icon>
@@ -64,7 +64,7 @@
 
     </section> <!-- instructions -->
 
-    <app-sport id="sports" class="container">
+    <app-sport [isAuthenticated]="isAuthenticated" id="sports" class="container">
 
 
     </app-sport> <!-- sports-->

@@ -1,0 +1,50 @@
+body{
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  background-color: rgba(255, 221, 0, 0.2);
+  border-radius: 15px 50px;
+}
+
+.stars{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color:gold;
+}
+
+table{
+  table-layout: fixed;
+  width:100%;
+}
+
+tr{
+  padding-top:10px;
+}
+th{
+  width:10%;
+  text-align: left;
+  font-size: large;
+}
+td{
+  padding-left:20px;
+  font-size: medium;
+}
+
+.elem{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+a{
+  text-decoration: none;
+}
+a:link, a:visited, a:active{
+  color:black;
+}
+
+a:hover{
+  color: firebrick;
+  font-weight: bold;
+}

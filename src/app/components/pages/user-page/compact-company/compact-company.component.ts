@@ -17,7 +17,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CompactCompanyComponent implements OnInit {
 
   @Input() company: Company;
+
   fieldList: Field[];
+  fieldQuantity: number;
+  fieldPageIndex = 0;
+  fieldPageSize = 10;
+  fieldPageSizeOptions = [5, 10, 20];
+
   @Output() companyChanged: EventEmitter<string> = new EventEmitter<string>();
 
   freeDayToString: string;
@@ -99,9 +105,16 @@ export class CompactCompanyComponent implements OnInit {
   }
 
 
+
   async retrieveFields() {
 
-    this.companyService.getFields(this.company.id).subscribe({
+    this.companyService.getFieldQuantity(this.company.id).subscribe({
+      next: x => {
+        this.fieldQuantity = x;
+      }
+
+    });
+    this.companyService.getFields(this.company.id, this.fieldPageIndex, this.fieldPageSize).subscribe({
       next: x => {
         const message: any = x;
         if (message.message === 'No results!!!'){
@@ -162,4 +175,11 @@ export class CompactCompanyComponent implements OnInit {
     });
   }
 
+  handlePage(e: any){
+
+    this.fieldPageIndex = e.pageIndex;
+    this.fieldPageSize = e.pageSize;
+    console.log({index: this.fieldPageIndex, size: this.fieldPageSize});
+    this.retrieveFields();
+  }
 }

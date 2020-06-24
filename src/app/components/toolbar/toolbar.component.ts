@@ -97,7 +97,7 @@ export class ToolbarComponent implements OnInit {
 
   async getCompanyList(){
 
-    this.userService.getCompanies(this.user.email).subscribe({
+    this.userService.getAllCompanies(this.user.email).subscribe({
       next: x => {
         const message: any = x;
         if (message.message === 'User doesn\'t exist!!!'){

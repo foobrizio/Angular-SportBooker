@@ -104,7 +104,7 @@
 
 
     </section>
-    <app-field-list #fieldList *ngIf="lookingFor==='fields' "></app-field-list>
-    <app-company-list #companyList *ngIf="lookingFor==='companies' "></app-company-list>
+    <app-field-list (paginated)="prepareSearch($event)" #fieldList *ngIf="lookingFor==='fields' "></app-field-list>
+    <app-company-list (paginated)="prepareSearch($event)" #companyList *ngIf="lookingFor==='companies' "></app-company-list>
   </div>
 </body>

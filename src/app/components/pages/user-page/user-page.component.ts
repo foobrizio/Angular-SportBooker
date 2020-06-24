@@ -8,6 +8,7 @@ import { Review } from 'src/app/classes/review';
 import { Company } from 'src/app/classes/company';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   templateUrl: './user-page.component.html',
@@ -18,18 +19,26 @@ export class UserPageComponent implements OnInit {
   user: User;
 
   reservationList: Reservation[] = [];
+  reservationQuantity: number;
+  reservationPageIndex = 0;
   reservationPageSize = 10;
   reservationPageSizeOptions = [5 , 10 , 20];
 
   expiredReservationList: Reservation[] = [];
+  expiredReservationQuantity: number;
+  expiredReservationPageIndex = 0;
   expiredReservationPageSize = 10;
   expiredReservationPageSizeOptions = [5 , 10 , 20];
 
   reviewList: Review[] = [];
+  reviewQuantity: number;
+  reviewPageIndex = 0;
   reviewPageSize = 10;
   reviewPageSizeOptions = [5, 10 , 20];
 
   companyList: Company[] = [];
+  companyQuantity: number;
+  companyPageIndex = 0;
   companyPageSize = 10;
   companyPageSizeOptions = [5 , 10 , 20];
 
@@ -81,9 +90,46 @@ export class UserPageComponent implements OnInit {
     });
   }
 
+  handleReservationPage(e: PageEvent){
+
+    this.reservationPageIndex = e.pageIndex;
+    this.reservationPageSize = e.pageSize;
+    this.getActiveReservations();
+  }
+
+  handleExpiredReservationPage(e: PageEvent){
+
+    this.expiredReservationPageIndex = e.pageIndex;
+    this.expiredReservationPageSize = e.pageSize;
+    this.getExpiredReservations();
+  }
+
+  handleReviewPage(e: PageEvent){
+
+    this.reviewPageIndex = e.pageIndex;
+    this.reviewPageSize = e.pageSize;
+    this.getReviews();
+  }
+
+  handleCompanyPage(e: PageEvent){
+
+    this.companyPageIndex = e.pageIndex;
+    this.companyPageSize = e.pageSize;
+    this.getCompanies();
+  }
+
   async getActiveReservations(){
 
-    this.userService.getActiveReservations(this.user.email).subscribe({
+    this.userService.getActiveReservationsQuantity(this.user.email).subscribe({
+      next: x => {
+        this.reservationQuantity = x;
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+
+    this.userService.getActiveReservations(this.user.email, this.reservationPageIndex, this.reservationPageSize).subscribe({
       next: x => {
         const message: any = x;
         if (message.message === 'No results!!!'){
@@ -103,7 +149,16 @@ export class UserPageComponent implements OnInit {
 
   async getExpiredReservations(){
 
-    this.userService.getExpiredReservations(this.user.email).subscribe({
+    this.userService.getExpiredReservationsQuantity(this.user.email).subscribe({
+      next: x => {
+        this.expiredReservationQuantity = x;
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+
+    this.userService.getExpiredReservations(this.user.email, this.expiredReservationPageIndex, this.expiredReservationPageSize).subscribe({
       next: x => {
         const message: any = x;
         if (message.message === 'No results!!!'){
@@ -123,7 +178,16 @@ export class UserPageComponent implements OnInit {
 
   async getReviews(){
 
-    this.userService.getReviews(this.user.email).subscribe({
+    this.userService.getReviewsQuantity(this.user.email).subscribe({
+      next: x => {
+        this.reviewQuantity = x;
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+
+    this.userService.getReviews(this.user.email, this.reviewPageIndex, this.reviewPageSize).subscribe({
       next: x => {
         const message: any = x;
         if (message.message === 'No results!!!'){
@@ -143,7 +207,16 @@ export class UserPageComponent implements OnInit {
 
   async getCompanies(){
 
-    this.userService.getCompanies(this.user.email).subscribe({
+    this.userService.getCompaniesQuantity(this.user.email).subscribe({
+      next: x => {
+        this.companyQuantity = x;
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+
+    this.userService.getCompanies(this.user.email, this.companyPageIndex, this.companyPageSize).subscribe({
       next: x => {
         const message: any = x;
         if (message.message === 'No results!!!'){

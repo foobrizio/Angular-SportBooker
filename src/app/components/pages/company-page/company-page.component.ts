@@ -12,6 +12,7 @@ import { User } from 'src/app/classes/user';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewDialogComponent } from '../../dialog/review-dialog/review-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   templateUrl: './company-page.component.html',
@@ -28,10 +29,13 @@ export class CompanyPageComponent implements OnInit {
 
   neverLeft: boolean;
   reviewList: Review[];
+  reviewPageIndex = 0;
   reviewPageSize = 10;
   reviewPageSizeOptions = [5, 10, 20];
 
   fieldList: Field[];
+  fieldQuantity: number;
+  fieldPageIndex = 0;
   fieldPageSize = 10;
   fieldPageSizeOptions = [5, 10, 20];
 
@@ -42,7 +46,7 @@ export class CompanyPageComponent implements OnInit {
   ngOnInit(): void {
 
     window.scrollTo(0 , 0);
-    this.reviewOrder = 'Le migliori';
+    this.reviewOrder = 'best';
     this.getParams();
     this.getUser();
   }
@@ -119,9 +123,34 @@ export class CompanyPageComponent implements OnInit {
     this.getOldReservations();
   }
 
+  handleFieldPage(e: PageEvent){
+
+    this.fieldPageIndex = e.pageIndex;
+    this.fieldPageSize = e.pageSize;
+    console.log({index: this.fieldPageIndex, size: this.fieldPageSize});
+    this.getFields();
+  }
+
+  handleReviewPage(e: PageEvent){
+
+    this.reviewPageIndex = e.pageIndex;
+    this.reviewPageSize = e.pageSize;
+    this.getReviews();
+  }
+
   async getFields(){
 
-    this.companyService.getFields(this.company.id).subscribe({
+    this.companyService.getFieldQuantity(this.company.id).subscribe({
+      next: x => {
+        console.log(x);
+        this.fieldQuantity = x;
+
+      },
+      error: err => {
+
+      }
+    });
+    this.companyService.getFields(this.company.id, this.fieldPageIndex, this.fieldPageSize).subscribe({
       next: x => {
         const message: any = x;
         if (message.message === 'No results!!!' || message.message === 'Company doesn\'t exist!!!'){
@@ -158,7 +187,7 @@ export class CompanyPageComponent implements OnInit {
     });
 
     // ora prendiamo la lista di recensioni
-    this.companyService.getReviews(this.company.id).subscribe({
+    this.companyService.getReviews(this.company.id, this.reviewPageIndex, this.reviewPageSize, this.reviewOrder).subscribe({
       next: x => {
         const message: any = x;
         if (message.message === 'No results!!!'){
@@ -209,7 +238,7 @@ export class CompanyPageComponent implements OnInit {
   toggleReviewOrder(value: string): void{
 
     this.reviewOrder = value;
-
+    this.getReviews();
   }
 
   howManyEmptyStars(): number{

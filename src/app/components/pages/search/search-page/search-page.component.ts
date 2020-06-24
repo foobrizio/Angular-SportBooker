@@ -5,7 +5,6 @@ import { Location } from '@angular/common';
 import { FlexibleObject } from './flexible-object';
 import { FieldListComponent } from '../list/field-list/field-list.component';
 import { CompanyListComponent } from '../list/company-list/company-list.component';
-import { Field } from 'src/app/classes/field';
 
 @Component({
   templateUrl: './search-page.component.html',
@@ -30,6 +29,9 @@ export class SearchPageComponent implements OnInit {
   ratingFieldRadio: number;
   ratingCompanyRadio: number;
 
+  pageIndex = 0;
+  pageSize = 10;
+
   @ViewChild('fieldList') fieldList: FieldListComponent;
   @ViewChild('companyList') companyList: CompanyListComponent;
 
@@ -53,6 +55,13 @@ export class SearchPageComponent implements OnInit {
     this.selectedSearch = selected;
   }
 
+  prepareSearch(e: any){
+
+    this.pageIndex = e.pageNumber;
+    this.pageSize = e.pageSize;
+    this.search();
+  }
+
   search(): void{
 
     let myParams = this.createParams();
@@ -73,47 +82,65 @@ export class SearchPageComponent implements OnInit {
     // this.lookingFor = myParams.lookingFor;
     console.log('lookingFor=' + this.lookingFor);
     if (myParams.lookingFor === 'fields'){
-      this.searchService.getFields().subscribe({
-        next: x => {
-          const message: any = x;
-          if (message.message === 'No results!!!'){
-            console.log('Nessun campo ricevuto');
-            this.fieldList?.resetList();
-          }
-          else{
-            this.fieldList?.setList(x);
-          }
-        },
-        error: err => {
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
-        },
-        complete: () => console.log('Observer è stato completato')
-
-      });
+      this.searchFields();
     } // fields
     else{
-      this.searchService.getCompanies().subscribe({
-        next: x => {
-          const message: any = x;
-          if (message.message === 'No results!!!'){
-            this.companyList?.resetList();
-          }
-          else{
-            this.companyList?.setList(x);
-          }
-        },
-        error: err => {
-          console.log('Observer ha generato l\'errore ');
-          console.log(err);
-        },
-        complete: () => console.log('Observer è stato completato')
-      });
+      this.searchCompanies();
     }
     window.scrollTo(0, 0);
     myParams = null;
   }
 
+
+  searchFields(): void {
+
+    this.searchService.getFieldsQuantity().subscribe({
+      next: x => {
+        this.fieldList.setQuantity(x);
+      }
+    });
+    this.searchService.getFields(this.pageIndex, this.pageSize).subscribe({
+      next: x => {
+        const message: any = x;
+        if (message.message === 'No results!!!'){
+          console.log('Nessun campo ricevuto');
+          this.fieldList?.resetList();
+        }
+        else{
+          this.fieldList?.setList(x);
+        }
+      },
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
+    });
+  }
+
+
+  searchCompanies(): void {
+
+    this.searchService.getCompaniesQuantity().subscribe({
+      next: x => {
+        this.companyList.setQuantity(x);
+      }
+    });
+    this.searchService.getCompanies(this.pageIndex, this.pageSize).subscribe({
+      next: x => {
+        const message: any = x;
+        if (message.message === 'No results!!!'){
+          this.companyList?.resetList();
+        }
+        else{
+          this.companyList?.setList(x);
+        }
+      },
+      error: err => {
+        console.log('Observer ha generato l\'errore ');
+        console.log(err);
+      }
+    });
+  }
   /* Questo metodo controlla costantemente la variazione dei parametri dell'url,
      andando ad aggiornare quelli presenti nel nostro component */
   subscribeToParams(): void{

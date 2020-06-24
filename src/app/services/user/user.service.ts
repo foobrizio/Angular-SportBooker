@@ -30,28 +30,60 @@ export class UserService {
     return this.http.post<string>(this.mainUrl + '/register', userStringato, config);
   }
 
-  getActiveReservations( email: string): Observable<Reservation[]>{
+  getActiveReservations( email: string, pageNumber: number, pageSize: number): Observable<Reservation[]>{
 
-    const paramz = new HttpParams().set('email', email);
+    const paramz = new HttpParams().set('email', email).set('pageNumber', String(pageNumber)).set('pageSize', String(pageSize));
     return this.http.get<Reservation[]>(this.mainUrl + '/myReservations/', {params: paramz});
   }
 
-  getExpiredReservations( email: string): Observable<Reservation[]>{
+  getActiveReservationsQuantity( email: string): Observable<number>{
 
     const paramz = new HttpParams().set('email', email);
+    return this.http.get<number>(this.mainUrl + '/myReservations/qt/', {params: paramz});
+
+  }
+
+  getExpiredReservations( email: string, pageNumber: number, pageSize: number): Observable<Reservation[]>{
+
+    const paramz = new HttpParams().set('email', email).set('pageNumber', String(pageNumber)).set('pageSize', String(pageSize));
     return this.http.get<Reservation[]>(this.mainUrl + '/history/reservations/', {params: paramz});
   }
 
-  getReviews( email: string): Observable<Review[]>{
+  getExpiredReservationsQuantity( email: string): Observable<number>{
 
     const paramz = new HttpParams().set('email', email);
+    return this.http.get<number>(this.mainUrl + '/history/reservations/qt/', {params: paramz});
+  }
+
+  getReviews( email: string, pageNumber: number, pageSize: number): Observable<Review[]>{
+
+    const paramz = new HttpParams().set('email', email).set('pageNumber', String(pageNumber)).set('pageSize', String(pageSize));
     return this.http.get<Review[]>(this.mainUrl + '/history/reviews/', {params: paramz});
   }
 
-  getCompanies( email: string): Observable<Company[]>{
+  getReviewsQuantity( email: string): Observable<number>{
 
     const paramz = new HttpParams().set('email', email);
+    return this.http.get<number>(this.mainUrl + '/history/reviews/qt/', {params: paramz});
+
+  }
+
+  getAllCompanies( email: string): Observable<Company[]>{
+
+    const paramz = new HttpParams().set('email', email);
+    return this.http.get<Company[]>(this.mainUrl + '/myCompanies/all/', {params: paramz});
+  }
+
+  getCompanies( email: string, pageNumber: number, pageSize: number): Observable<Company[]>{
+
+    const paramz = new HttpParams().set('email', email).set('pageNumber', String(pageNumber)).set('pageSize', String(pageSize));
     return this.http.get<Company[]>(this.mainUrl + '/myCompanies/', {params: paramz});
+  }
+
+  getCompaniesQuantity( email: string): Observable<number>{
+
+    const paramz = new HttpParams().set('email', email);
+    return this.http.get<number>(this.mainUrl + '/myCompanies/qt/', {params: paramz});
   }
 
   deleteReservation(res: Reservation): Observable<string>{

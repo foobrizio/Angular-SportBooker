@@ -1,7 +1,10 @@
 <body>
   <main>
     <div class="column">
-      <h1 class="mat-display-1">{{company.name}}</h1>
+      <a routerLink="/company" [queryParams]="{id: company.id}">
+        <h1 class="mat-display-1">{{company.name}}</h1>
+      </a>
+
     </div>
 
     <div class="column">
@@ -92,7 +95,6 @@
       <h1>{{i+1}})</h1>
       <app-compact-field (changed)="retrieveFields()" [field]=fld view="owner"></app-compact-field>
     </div>
-
-
+    <mat-paginator (page)="handlePage($event)" [pageIndex]="fieldPageIndex" [length]="fieldQuantity" [pageSize]="fieldPageSize" [pageSizeOptions]="fieldPageSizeOptions"></mat-paginator>
   </section>
 </body>

@@ -1,1 +1,26 @@
-<p>compact-review works!</p>
+<body>
+  <div class="stars">
+    <mat-icon *ngFor="let i of [].constructor(howManyFullStars())">star</mat-icon>
+    <mat-icon *ngIf="hasHalfStar()">star_half</mat-icon>
+    <mat-icon *ngFor="let i of [].constructor(howManyEmptyStars())">star_border</mat-icon>
+
+  </div>
+  <table>
+    <tr class="elem">
+      <th>Commento:</th>
+      <td>{{review.comment}}</td>
+    </tr>
+    <tr class="elem">
+      <th>Data:</th>
+      <td>{{getData()}}</td>
+    </tr>
+    <tr class="elem">
+      <th>Struttura: </th>
+      <td>
+        <a routerLink="/company" [queryParams]="{id: review.company.id}">{{review.company.name}}</a>
+      </td>
+    </tr>
+
+  </table>
+
+</body>

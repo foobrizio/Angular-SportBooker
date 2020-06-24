@@ -1,7 +1,8 @@
 .container{
   display: inline-flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
   width:100%;
 }
 
@@ -41,12 +42,14 @@ img{
   justify-content: flex-end;
   align-items: center;
   align-content: center;
+  margin-right:10px;
 }
 
 .singleInfo{
   display: inline-flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: space-between;
+  flex-shrink: 2;
 }
 
 .mat-display-1{

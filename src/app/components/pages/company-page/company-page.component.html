@@ -99,7 +99,7 @@
             </li>
             <li *ngIf="getNumberOfFields('Volley')>0">
               <mat-icon>sports_volleyball</mat-icon>
-              {{getNumberOfFields('Volley')}} di Rugby
+              {{getNumberOfFields('Volley')}} di Volley
             </li>
             <li *ngIf="getNumberOfFields('Basket')>0">
               <mat-icon>sports_basketball</mat-icon>
@@ -137,7 +137,7 @@
         </div>
         <mat-divider></mat-divider>
       </div>
-      <mat-paginator [length]="fieldList?.length" [pageSize]="fieldPageSize" [pageSizeOptions]="fieldPageSizeOptions"></mat-paginator>
+      <mat-paginator (page)="handleFieldPage($event)" [pageIndex]="fieldPageIndex" [length]="fieldQuantity" [pageSize]="fieldPageSize" [pageSizeOptions]="fieldPageSizeOptions"></mat-paginator>
 
     </section>
 
@@ -149,10 +149,10 @@
         Lascia una recensione
       </button>
       <div class="reviewButton">
-        <h4>Mostra:</h4>
+        <h4><strong>Mostra:</strong></h4>
         <mat-select [(value)]="reviewOrder">
-          <mat-option value="Le migliori" (click)="toggleReviewOrder('Le migliori')">Le migliori</mat-option>
-          <mat-option value="Più recenti" (click)="toggleReviewOrder('Più recenti')">Più recenti</mat-option>
+          <mat-option value="best" (click)="toggleReviewOrder('best')">Le migliori</mat-option>
+          <mat-option value="recent" (click)="toggleReviewOrder('recent')">Più recenti</mat-option>
         </mat-select>
       </div>
       <mat-divider></mat-divider>
@@ -161,7 +161,7 @@
         <app-review [review]=review></app-review>
         <mat-divider></mat-divider>
       </div>
-      <mat-paginator [length]="reviewList?.length" [pageSize]="reviewPageSize" [pageSizeOptions]="reviewPageSizeOptions"></mat-paginator>
+      <mat-paginator (page)="handleReviewPage($event)" [pageIndex]="reviewPageIndex" [length]="reviewList?.length" [pageSize]="reviewPageSize" [pageSizeOptions]="reviewPageSizeOptions"></mat-paginator>
 
     </section>
   </div>

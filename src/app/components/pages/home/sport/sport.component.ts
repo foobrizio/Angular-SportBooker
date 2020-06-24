@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SportComponent implements OnInit {
 
+  @Input() isAuthenticated: boolean;
+
 
   constructor(private searchService: SearchService) { }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
 import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Field } from 'src/app/classes/field';
@@ -20,6 +20,7 @@ export class SearchService {
 
   private url = 'http://localhost:8080/search/';
   private finalUrl: string;
+  private qtUrl: string;
 
   constructor(private http: HttpClient) { }
 
@@ -37,50 +38,64 @@ export class SearchService {
   search(): void{
 
     this.finalUrl = this.url.concat('');
+    this.qtUrl = this.url.concat('qt/');
+    let resto = '';
     if (this.lookingFor === 'fields'){
-      this.finalUrl = this.finalUrl.concat('fields?');
+      resto = resto.concat('fields?');
       if (this.sport){
-        this.finalUrl = this.finalUrl.concat('sport=', this.sport, '&');
+        resto = resto.concat('sport=', this.sport, '&');
       }
       if (this.city){
-        this.finalUrl = this.finalUrl.concat('city=', this.city, '&');
+        resto = resto.concat('city=', this.city, '&');
       }
       if (this.terrain){
-        this.finalUrl = this.finalUrl.concat('terrain=', this.terrain, '&');
+        resto = resto.concat('terrain=', this.terrain, '&');
       }
       if (this.rating){
-        this.finalUrl = this.finalUrl.concat('rating=', this.rating, '&');
+        resto = resto.concat('rating=', this.rating, '&');
       }
       if (this.date){
-        this.finalUrl = this.finalUrl.concat('date=', this.date.getTime().toString(), '&');
+        resto = resto.concat('date=', this.date.getTime().toString(), '&');
       }
       if (this.time){
-        this.finalUrl = this.finalUrl.concat('time=', this.time, '&');
+        resto = resto.concat('time=', this.time, '&');
       }
     } else {
-      this.finalUrl = this.finalUrl.concat('companies?');
+      resto = resto.concat('companies?');
       if (this.city){
-        this.finalUrl = this.finalUrl.concat('city=', this.city, '&');
+        resto = resto.concat('city=', this.city, '&');
       }
       if (this.rating){
-        this.finalUrl = this.finalUrl.concat('rating=', this.rating, '&');
+        resto = resto.concat('rating=', this.rating, '&');
       }
     }
-    this.finalUrl = this.finalUrl.substring(0 , this.finalUrl.length - 1);
+    this.finalUrl = this.finalUrl + resto.substring(0 , resto.length - 1);
+    this.qtUrl = this.qtUrl + resto.substring(0, resto.length - 1);
   }
 
 
+  getFieldsQuantity(): Observable<number>{
 
-  getFields(): Observable<Field[]>{
-
-    return this.http.get<Field[]>(this.finalUrl);
-
+    console.log(this.finalUrl);
+    console.log(this.qtUrl);
+    return this.http.get<number>(this.qtUrl);
   }
 
-  getCompanies(): Observable<Company[]>{
+  getCompaniesQuantity(): Observable<number>{
 
-    return this.http.get<Company[]>(this.finalUrl);
+    return this.http.get<number>(this.qtUrl);
+  }
 
+  getFields(pageNumber: number, pageSize: number): Observable<Field[]>{
+
+    const paramz = new HttpParams().set('pageNumber', String(pageNumber)).set('pageSize', String(pageSize));
+    return this.http.get<Field[]>(this.finalUrl, {params: paramz});
+  }
+
+  getCompanies(pageNumber: number, pageSize: number): Observable<Company[]>{
+
+    const paramz = new HttpParams().set('pageNumber', String(pageNumber)).set('pageSize', String(pageSize));
+    return this.http.get<Company[]>(this.finalUrl, {params: paramz});
   }
 
 

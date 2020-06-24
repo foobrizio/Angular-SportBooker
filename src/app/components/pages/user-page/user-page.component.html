@@ -74,23 +74,23 @@
         <div class="active">
           <h1><strong>Attive</strong></h1>
           <div class="list">
-            <div class="element" *ngFor="let res of reservationList; index as i">
+            <div class="resElement" *ngFor="let res of reservationList; index as i">
               <h2>{{i+1}})</h2>
               <app-compact-reservation (undone)="undoReservation($event)" [reservation]=res></app-compact-reservation>
             </div>
           </div>
-          <mat-paginator [length]="reservationList?.length" [pageSize]="reservationPageSize" [pageSizeOptions]="reservationPageSizeOptions"></mat-paginator>
+          <mat-paginator [length]="reservationQuantity" [pageSize]="reservationPageSize" [pageSizeOptions]="reservationPageSizeOptions"></mat-paginator>
         </div>
 
         <div class="expired">
           <h1><strong>Passate</strong></h1>
           <div class="list">
-            <div class="element" *ngFor="let res of expiredReservationList; index as i">
+            <div class="resElement" *ngFor="let res of expiredReservationList; index as i">
               <h2>{{i+1}})</h2>
               <app-compact-reservation [reservation]=res></app-compact-reservation>
             </div>
           </div>
-          <mat-paginator [length]="expiredReservationList?.length" [pageSize]="expiredReservationPageSize" [pageSizeOptions]="expiredReservationPageSizeOptions"> </mat-paginator>
+          <mat-paginator [length]="expiredReservationQuantity" [pageSize]="expiredReservationPageSize" [pageSizeOptions]="expiredReservationPageSizeOptions"> </mat-paginator>
         </div>
 
       </div>
@@ -107,12 +107,13 @@
       <mat-divider></mat-divider>
 
       <div class="list">
-        <div class="element" *ngFor="let rw of reviewList">
+        <div class="revElement" *ngFor="let rw of reviewList;index as i">
+          <h2>{{i+1}})</h2>
           <app-compact-review [review]=rw></app-compact-review>
         </div>
       </div>
 
-      <mat-paginator [length]="reviewList?.length" [pageSize]="reviewPageSize" [pageSizeOptions]="reviewPageSizeOptions"></mat-paginator>
+      <mat-paginator [length]="reviewQuantity" [pageSize]="reviewPageSize" [pageSizeOptions]="reviewPageSizeOptions"></mat-paginator>
 
     </section>
 
@@ -131,7 +132,7 @@
         </div>
       </div>
 
-      <mat-paginator [length]="companyList?.length" [pageSize]="companyPageSize" [pageSizeOptions]="companyPageSizeOptions"></mat-paginator>
+      <mat-paginator [length]="companyQuantity" [pageSize]="companyPageSize" [pageSizeOptions]="companyPageSizeOptions"></mat-paginator>
 
     </section>
 

@@ -11,7 +11,7 @@
   <app-company [company]=cmp></app-company>
 </div>
 
-<mat-paginator [length]="companyList?.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+<mat-paginator (page)="handlePage($event)" [length]="companyQuantity" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
 
 </mat-paginator>
 

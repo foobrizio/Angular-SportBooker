@@ -10,5 +10,5 @@
   <mat-divider></mat-divider>
   <app-field [field]=fld></app-field>
 </div>
-<mat-paginator [length]="fieldList?.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"> </mat-paginator>
+<mat-paginator (page)="handlePage($event)" [length]="fieldQuantity" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"> </mat-paginator>
 

@@ -23,14 +23,27 @@ export class CompanyService {
     return this.http.get<Company>(this.mainUrl + '/' + String(id));
   }
 
-  getReviews(id: number): Observable<Review[]>{
+  getReviews(id: number, pageNumber: number, pageSize: number, order: string): Observable<Review[]>{
 
-    return this.http.get<Review[]>(this.mainUrl + '/reviews/' + String(id));
+    let sortBy: string;
+    if (order === 'recent'){
+      sortBy = 'publishTime';
+    }
+    else{ sortBy = 'vote'; }
+    const paramz = new HttpParams().set('sortBy', sortBy).set('pageNumber', String(pageNumber)).set('pageSize', String(pageSize));
+    return this.http.get<Review[]>(this.mainUrl + '/reviews/' + String(id), {params: paramz});
   }
 
-  getFields(id: number): Observable<Field[]>{
+  getFields(id: number, pageNumber: number, pageSize: number): Observable<Field[]>{
 
-    return this.http.get<Field[]>(this.mainUrl + '/fields/' + String(id));
+    const paramz = new HttpParams().set('pageNumber', String(pageNumber)).set('pageSize', String(pageSize));
+    return this.http.get<Field[]>(this.mainUrl + '/fields/' + String(id), {params: paramz});
+  }
+
+  getFieldQuantity(id: number): Observable<number>{
+
+    return this.http.get<number>(this.mainUrl + '/fields/qt/' + String(id));
+
   }
 
   getOldReservations(id: number): Observable<Reservation[]>{

@@ -1,5 +1,7 @@
 body{
 
+  display: table;
+  height: 100%;
   min-height: 2000px;
   background-color:  lightgoldenrodyellow;
 
