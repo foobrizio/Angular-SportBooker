@@ -9,6 +9,7 @@ import { Company } from 'src/app/classes/company';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Field } from 'src/app/classes/field';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -196,6 +197,43 @@ export class ToolbarComponent implements OnInit {
         }
       },
       error: err => {
+        console.log(err);
+      }
+    });
+  }
+
+
+  onDeleteClick(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      height: '200px',
+      width: '300px',
+    });
+    dialogRef.afterClosed().subscribe( result => {
+
+      if (typeof(result) === 'boolean' && result){
+
+        this.deleteUser();
+      }
+
+    });
+  }
+  async deleteUser(){
+
+    this.userService.deleteUser(this.user.id).subscribe({
+
+      next: x => {
+        const message: any = x;
+        if (message.message === 'User deleted!!!'){
+          this.snackBar.open('Utente eliminato', 'OK', {
+            duration: 5000
+          });
+          this.logout();
+        }
+        else if (message.message === 'User doesn\'t exist'){
+          console.log('L\' utente non esiste');
+        }
+      },
+      error : err => {
         console.log(err);
       }
     });

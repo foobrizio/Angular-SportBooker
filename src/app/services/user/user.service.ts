@@ -92,4 +92,11 @@ export class UserService {
     const options = {params: paramz};
     return this.http.delete<string>(this.mainUrl + '/myReservations', options);
   }
+
+  deleteUser(id: number): Observable<string>{
+
+    const paramz = new HttpParams().set('id', String(id));
+    return this.http.delete<string>(this.mainUrl, {params: paramz});
+
+  }
 }
