@@ -15,6 +15,7 @@ import { UserPageComponent } from './components/pages/user-page/user-page.compon
 const oktaConfig = {
   issuer: 'https://dev-834625.okta.com/oauth2/default	',
   redirectUri: window.location.origin + '/callback',
+  // clientId: '0oafcrqc6jLxNfyD84x6',
   clientId: '0oafa5b4pHLu6y5Ww4x6',
   scopes: ['openid', 'profile']
 };

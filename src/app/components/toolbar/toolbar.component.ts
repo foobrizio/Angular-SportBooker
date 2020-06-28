@@ -54,21 +54,18 @@ export class ToolbarComponent implements OnInit {
     newUser.email = (await this.oktaAuth.getUser()).preferred_username;
     this.userService.retrieveUser(newUser.email).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'User doesn\'t exist!!!'){ /* Ci stiamo connettendo al sito per la prima volta */
+
+        this.user = User.create(x);
+        this.getCompanyList();
+      },
+      error: err => {
+        if (err.error.message === 'User doesn\'t exist!!!'){ /* Ci stiamo connettendo al sito per la prima volta */
           this.user = newUser;
           this.registerUser(newUser);
         }
         else{
-          console.log('Utente loggato');
-          this.user = User.create(x);
-          console.log(this.user);
-          this.getCompanyList();
+          console.log(err);
         }
-      },
-      error: err => {
-        console.log('Observer ha generato l\'errore ');
-        console.log(err);
       }
     });
   }
