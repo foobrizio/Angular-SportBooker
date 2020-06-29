@@ -76,8 +76,6 @@ export class SearchService {
 
   getFieldsQuantity(): Observable<number>{
 
-    console.log(this.finalUrl);
-    console.log(this.qtUrl);
     return this.http.get<number>(this.qtUrl);
   }
 

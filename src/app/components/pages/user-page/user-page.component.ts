@@ -131,12 +131,12 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getActiveReservations(this.user.email, this.reservationPageIndex, this.reservationPageSize).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          this.reservationList = [];
+        if (x){
+          this.reservationList = x;
+
         }
         else{
-          this.reservationList = x;
+          this.reservationList = [];
         }
       },
       error: err => {
@@ -160,12 +160,11 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getExpiredReservations(this.user.email, this.expiredReservationPageIndex, this.expiredReservationPageSize).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          this.expiredReservationList = [];
+        if (x){
+          this.expiredReservationList = x;
         }
         else{
-          this.expiredReservationList = x;
+          this.expiredReservationList = [];
         }
       },
       error: err => {
@@ -189,12 +188,11 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getReviews(this.user.email, this.reviewPageIndex, this.reviewPageSize).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          this.reviewList = [];
-        }
-        else{
+        if (x){
           this.reviewList = x;
+        }
+        else {
+          this.reviewList = [];
         }
       },
       error: err => {
@@ -218,17 +216,16 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getCompanies(this.user.email, this.companyPageIndex, this.companyPageSize).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          this.companyList = [];
-        }
-        else{
+        if (x){
           const list: Company[] = [];
           x.forEach( company => {
             const c = Company.create(company);
             list.push(c);
           });
           this.companyList = list;
+        }
+        else{
+          this.companyList = [];
         }
       },
       error: err => {

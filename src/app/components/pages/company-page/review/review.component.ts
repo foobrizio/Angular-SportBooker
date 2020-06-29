@@ -18,4 +18,12 @@ export class ReviewComponent implements OnInit {
     this.date = data.toString().substring(3 , 15);
   }
 
+
+  getData(): string {
+
+    const date = new Date(this.review.publishTime);
+    const options = {day: 'numeric', month: 'long', year: 'numeric'};
+    return date.toLocaleString('it-IT', options);
+  }
+
 }

@@ -97,21 +97,23 @@ export class ToolbarComponent implements OnInit {
 
     this.userService.getAllCompanies(this.user.email).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'User doesn\'t exist!!!'){
-          console.log('L\'utente non esiste???');
-        }
-        else if (message.message === 'No results!!!'){
-          this.companyList = [];
-          console.log('Nessuna struttura trovata');
+        if (x){
+          const message: any = x;
+          if (message.message === 'User doesn\'t exist!!!'){
+            console.log('L\'utente non esiste???');
+          }
+          else{
+            const list: Company[] = [];
+            x.forEach( company => {
+              const c = Company.create(company);
+              list.push(c);
+            });
+            this.companyList = list;
+          }
         }
         else{
-          const list: Company[] = [];
-          x.forEach( company => {
-            const c = Company.create(company);
-            list.push(c);
-          });
-          this.companyList = list;
+          this.companyList = [];
+
         }
       },
       error: err => {

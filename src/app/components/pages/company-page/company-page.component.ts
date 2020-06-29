@@ -114,7 +114,6 @@ export class CompanyPageComponent implements OnInit {
 
   async getCompanyData(){
 
-
     // prendiamo prima rating e reviews
     this.getReviews();
     // poi prendiamo la lista di campi
@@ -152,12 +151,11 @@ export class CompanyPageComponent implements OnInit {
     });
     this.companyService.getFields(this.company.id, this.fieldPageIndex, this.fieldPageSize).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!' || message.message === 'Company doesn\'t exist!!!'){
-          this.fieldList = [];
-        }
-        else{
+        if (x){
           this.fieldList = x;
+        }
+        else {
+          this.fieldList = [];
         }
       },
       error: err => {
@@ -189,16 +187,15 @@ export class CompanyPageComponent implements OnInit {
     // ora prendiamo la lista di recensioni
     this.companyService.getReviews(this.company.id, this.reviewPageIndex, this.reviewPageSize, this.reviewOrder).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          this.reviewList = [];
-        }
-        else{
+        if (x){
           const list = [];
           x.forEach( review => {
             list.push(Review.create(review));
           });
           this.reviewList = list;
+        }
+        else{
+          this.reviewList = [];
         }
       },
       error: err => {
@@ -212,12 +209,11 @@ export class CompanyPageComponent implements OnInit {
 
     this.companyService.getOldReservations(this.company.id).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!' || message.message === 'Company doesn\'t exist!!!'){
-          this.reservationList = [];
+        if (x){
+          this.reservationList = x;
         }
         else{
-          this.reservationList = x;
+          this.reservationList = [];
         }
       },
       error: err => {

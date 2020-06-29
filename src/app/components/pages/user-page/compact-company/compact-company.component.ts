@@ -116,12 +116,7 @@ export class CompactCompanyComponent implements OnInit {
     });
     this.companyService.getFields(this.company.id, this.fieldPageIndex, this.fieldPageSize).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          this.fieldList = [];
-          console.log('Nessun campo trovato');
-        }
-        else{
+        if (x){
           console.log('Campi trovati');
           const list: Field[] = [];
           x.forEach( field => {
@@ -130,16 +125,18 @@ export class CompactCompanyComponent implements OnInit {
           });
           this.fieldList = list;
         }
-
+        else{
+          this.fieldList = [];
+        }
       },
       error: err => {
+        console.log(err);
         if (err.error === 'User doesn\'t exists!!!'){
           console.log('L\'utente non esiste???');
         }
         else if (err.error === 'No results!!!'){
           this.fieldList = [];
           console.log('Nessuna struttura trovata');
-          console.log(err);
         }
       }
     });

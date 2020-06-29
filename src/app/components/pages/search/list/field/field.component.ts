@@ -45,16 +45,18 @@ export class FieldComponent implements OnInit {
     this.getUser();
     this.resServ.getActiveReservationsForField(this.field.id).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          this.openBookingDialog([]);
-        }
-        else if (message.message === 'Field doesn\'t exist!!!'){
-          console.log('Nessun campo associato all\' id');
+        if (x){
+          const message: any = x;
+          if (message.message === 'Field doesn\'t exist!!!'){
+            console.log('Nessun campo associato all\' id');
+          }
+          else{
+            reservationListObtained = x;
+            this.openBookingDialog(reservationListObtained);
+          }
         }
         else{
-          reservationListObtained = x;
-          this.openBookingDialog(reservationListObtained);
+          this.openBookingDialog([]);
         }
       },
       error: err => {

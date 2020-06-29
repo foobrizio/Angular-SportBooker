@@ -100,14 +100,20 @@ export class SearchPageComponent implements OnInit {
       }
     });
     this.searchService.getFields(this.pageIndex, this.pageSize).subscribe({
+
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          console.log('Nessun campo ricevuto');
-          this.fieldList?.resetList();
+        if (x){
+          const message: any = x;
+          if (message.message === 'No results!!!'){
+            console.log('Nessun campo ricevuto');
+            this.fieldList?.resetList();
+          }
+          else{
+            this.fieldList?.setList(x);
+          }
         }
         else{
-          this.fieldList?.setList(x);
+          this.fieldList?.resetList();
         }
       },
       error: err => {
@@ -127,12 +133,11 @@ export class SearchPageComponent implements OnInit {
     });
     this.searchService.getCompanies(this.pageIndex, this.pageSize).subscribe({
       next: x => {
-        const message: any = x;
-        if (message.message === 'No results!!!'){
-          this.companyList?.resetList();
+        if (x){
+          this.companyList?.setList(x);
         }
         else{
-          this.companyList?.setList(x);
+          this.companyList?.resetList();
         }
       },
       error: err => {
